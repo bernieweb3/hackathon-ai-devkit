@@ -7,9 +7,9 @@ Defines the recommended skill execution order for a complete hackathon project l
 ## Workflow Diagram
 
 ```
-[URL] → Event Parsing → Track Understanding → Idea Development → Scope Definition → Project Planning
-                                                                                           ↓
-                                                       Submission ← Evaluation ← Demo Preparation ← Implementation
+[URL] → Event Parsing → Track Understanding → Idea Development → Scope Definition → Risk Analysis → Project Planning
+                                                                                                           ↓
+                                        Submission ← Deployment Prep ← Evaluation ← Demo Preparation ← Build
 ```
 
 ---
@@ -22,11 +22,12 @@ Defines the recommended skill execution order for a complete hackathon project l
 | **1. Track Understanding** | `hackathon-track-analyzer` | Once; feeds all downstream phases |
 | **2. Idea Development** | `hackathon-problem-space` → `hackathon-idea-generator` → `hackathon-idea-scoring` | Sequential |
 | **3. Scope Definition** | `hackathon-scope-cutter` → `hackathon-wow-detector` | Sequential |
-| **4. Project Planning** | `hackathon-doc-writer` + `hackathon-task-planner` | Parallel |
-| **5. Implementation** | `hackathon-code-implementer` (×N tasks) → `hackathon-test-generator` | Per-task iteration |
-| **6. Demo Preparation** | `hackathon-demo-video` + `hackathon-pitchdeck` | Parallel after code freeze |
+| **4. Project Planning** | `hackathon-risk-analyzer` + `hackathon-doc-writer` + `hackathon-task-planner` | Risk first, then parallel |
+| **5. Build** | `hackathon-repo-bootstrap` → `hackathon-code-implementer` (×N) → `hackathon-test-generator` | Sequential; `hackathon-milestone-monitor` at each checkpoint |
+| **6. Demo Preparation** | `hackathon-demo-script` + `hackathon-demo-video` + `hackathon-pitchdeck` | Parallel after code freeze |
 | **7. Evaluation** | `hackathon-judge-simulator` | Once; re-invoke after pitch edits |
-| **8. Submission** | `hackathon-submission-prep` | Once; 1h before deadline minimum |
+| **8. Deployment Prep** | `hackathon-deployment-prep` | Once; after demo is validated |
+| **9. Submission** | `hackathon-submission-prep` | Once; 1h before deadline minimum |
 
 ---
 
@@ -38,11 +39,12 @@ Defines the recommended skill execution order for a complete hackathon project l
 | 1. Track Understanding | `hackathon-track-analyzer` | Constraints and evaluation axes confirmed |
 | 2. Idea Development | `hackathon-problem-space` → `hackathon-idea-generator` → `hackathon-idea-scoring` | Top idea selected and committed |
 | 3. Scope Definition | `hackathon-scope-cutter` → `hackathon-wow-detector` | MVP and demo flow locked |
-| 4. Project Planning | `hackathon-doc-writer` → `hackathon-task-planner` | Task list with estimates ready |
-| 5. Implementation | `hackathon-code-implementer` → `hackathon-test-generator` | Demo runs end-to-end |
-| 6. Demo Preparation | `hackathon-demo-video` → `hackathon-pitchdeck` | Video uploaded, slides ready |
+| 4. Project Planning | `hackathon-risk-analyzer` → `hackathon-doc-writer` + `hackathon-task-planner` | All critical risks mitigated; task list with estimates ready |
+| 5. Build | `hackathon-repo-bootstrap` → `hackathon-code-implementer` → `hackathon-test-generator` | Demo runs end-to-end; `hackathon-milestone-monitor` confirms on-track at each checkpoint |
+| 6. Demo Preparation | `hackathon-demo-script` + `hackathon-demo-video` + `hackathon-pitchdeck` | Script rehearsed; video uploaded; slides ready |
 | 7. Evaluation | `hackathon-judge-simulator` | Q&A prepared, pitch refined |
-| 8. Submission | `hackathon-submission-prep` | All artifacts submitted |
+| 8. Deployment Prep | `hackathon-deployment-prep` | All go/no-go criteria pass; fallback plan confirmed |
+| 9. Submission | `hackathon-submission-prep` | All artifacts submitted |
 
 ---
 
@@ -205,7 +207,7 @@ track_analyzer.evaluation_axes  → wow_detector.evaluation_axes
 
 ## Phase 4: Project Planning
 
-**Objective:** Document decisions and sequence work into executable tasks.
+**Objective:** Identify and mitigate risks, document decisions, and sequence work into executable tasks.
 
 **Entry Conditions:**
 - Phase 3 is complete: `mvp_features`, `mvp_demo_flow`, and `time_budget` are locked
@@ -213,6 +215,7 @@ track_analyzer.evaluation_axes  → wow_detector.evaluation_axes
 - Team roles are defined or inferable from team composition
 
 **Exit Conditions:**
+- All `critical` risks from `hackathon-risk-analyzer` have a confirmed mitigation or fallback
 - PRD document is drafted with success metrics
 - At least one ADR exists for the primary architectural decision
 - Full task list is produced with estimates, roles, and dependencies
@@ -220,24 +223,28 @@ track_analyzer.evaluation_axes  → wow_detector.evaluation_axes
 - `milestones` are set at 25%, 50%, 75%, and 90% of remaining time
 - Every team member has at least one assigned task
 
-**Skills (run in parallel or sequence):**
-- [`hackathon-doc-writer`](../skills/hackathon-doc-writer/SKILL.md) — Generate PRD and key ADRs for architectural decisions.
-- [`hackathon-task-planner`](../skills/hackathon-task-planner/SKILL.md) — Decompose MVP into time-boxed tasks with roles and dependencies.
+**Skills:**
+1. [`hackathon-risk-analyzer`](../skills/hackathon-risk-analyzer/SKILL.md) — Identify technical and demo risks; produce `pre_build_actions` before coding begins. *(new)*
+2. [`hackathon-doc-writer`](../skills/hackathon-doc-writer/SKILL.md) — Generate PRD and key ADRs for architectural decisions. *(run in parallel with task-planner)*
+3. [`hackathon-task-planner`](../skills/hackathon-task-planner/SKILL.md) — Decompose MVP into time-boxed tasks with roles and dependencies. *(run in parallel with doc-writer)*
 
 **Key Data Flow:**
 ```
-scope_cutter.mvp_features   → task_planner.mvp_features
-scope_cutter.time_budget    → task_planner (validates estimates)
-scope_cutter.mvp_demo_flow  → doc_writer.mvp_features
+scope_cutter.mvp_features    → risk_analyzer.mvp_features
+scope_cutter.mvp_features    → task_planner.mvp_features
+scope_cutter.time_budget     → task_planner (validates estimates)
+scope_cutter.mvp_demo_flow   → doc_writer.mvp_features
+risk_analyzer.pre_build_actions → execute before Phase 5
 ```
 
 **Key Outputs:**
+- `risk_summary` with all critical risks mitigated
 - Task list with `critical_path`
 - `milestones` at 25/50/75/90% time marks
 - `buffer_hours` reservation
 - PRD and ADR documents
 
-**Gate:** Every team member has their tasks. Critical path is known.
+**Gate:** All `critical` risks have confirmed mitigations. Every team member has their tasks. Critical path is known.
 
 **Templates:**
 - `templates/PRD-template.md`
@@ -246,15 +253,15 @@ scope_cutter.mvp_demo_flow  → doc_writer.mvp_features
 
 ---
 
-## Phase 5: Implementation
+## Phase 5: Build
 
-**Objective:** Build the demo path. Protect the wow feature.
+**Objective:** Scaffold the project, build the demo path, and monitor progress at each milestone.
 
 **Entry Conditions:**
-- Phase 4 is complete: task list with estimates and critical path is ready
+- Phase 4 is complete: all critical risks mitigated; task list with estimates and critical path is ready
 - Tech stack and architecture decisions are documented
 - All team members have assigned tasks and understand their dependencies
-- Development environment is set up and running
+- All `pre_build_actions` from `hackathon-risk-analyzer` have been completed
 
 **Exit Conditions:**
 - All MVP features are implemented
@@ -263,25 +270,29 @@ scope_cutter.mvp_demo_flow  → doc_writer.mvp_features
 - `done_criteria` for every task are verified
 - Demo path is frozen — no new feature changes after this gate
 
-**Skills (iterate per task):**
-- [`hackathon-code-implementer`](../skills/hackathon-code-implementer/SKILL.md) — Invoke per task from the task planner. Get implementation plan, code scaffolds, and done criteria.
-- [`hackathon-test-generator`](../skills/hackathon-test-generator/SKILL.md) — Invoke once the demo flow is connected. Generate demo-blocking test cases and manual verification checklist.
+**Skills:**
+1. [`hackathon-repo-bootstrap`](../skills/hackathon-repo-bootstrap/SKILL.md) — Scaffold project directory, configure environment variables, and set up deployment config. Invoke once at the start of Phase 5. *(new)*
+2. [`hackathon-code-implementer`](../skills/hackathon-code-implementer/SKILL.md) — Invoke per task from the task planner. Get implementation plan, code scaffolds, and done criteria.
+3. [`hackathon-milestone-monitor`](../skills/hackathon-milestone-monitor/SKILL.md) — Invoke at each milestone checkpoint (25%, 50%, 75%, 90%). Evaluate progress and recommend corrective actions. *(new)*
+4. [`hackathon-test-generator`](../skills/hackathon-test-generator/SKILL.md) — Invoke once the demo flow is connected. Generate demo-blocking test cases and manual verification checklist.
 
 **Key Data Flow:**
 ```
-task_planner.tasks[each]    → code_implementer (one invocation per task)
-code_implementer.done_criteria → test_generator.done_criteria
-scope_cutter.mvp_demo_flow  → test_generator.mvp_demo_flow
+task_planner.tasks[each]         → code_implementer (one invocation per task)
+task_planner.milestones          → milestone_monitor.milestones (at each checkpoint)
+code_implementer.done_criteria   → test_generator.done_criteria
+scope_cutter.mvp_demo_flow       → test_generator.mvp_demo_flow
+scope_cutter.mvp_demo_flow       → repo_bootstrap (scaffold aligns to demo flow)
 ```
 
 **Implementation Checkpoints:**
 
-| Time Used | Required State |
-|---|---|
-| 25% | Project scaffold running; core API endpoint responds |
-| 50% | Core mechanism working; connected end-to-end |
-| 75% | Full demo flow runs cleanly |
-| 90% | Demo path frozen; all demo-blocking tests pass |
+| Time Used | Required State | Skill to Invoke |
+|---|---|---|
+| 25% | Project scaffold running; core API endpoint responds | `hackathon-milestone-monitor` |
+| 50% | Core mechanism working; connected end-to-end | `hackathon-milestone-monitor` |
+| 75% | Full demo flow runs cleanly | `hackathon-milestone-monitor` |
+| 90% | Demo path frozen; all demo-blocking tests pass | `hackathon-milestone-monitor` |
 
 **Gate:** Demo runs end-to-end without crashing. `demo_blockers` are resolved.
 
@@ -295,7 +306,7 @@ scope_cutter.mvp_demo_flow  → test_generator.mvp_demo_flow
 
 ## Phase 6: Demo Preparation
 
-**Objective:** Produce the demo video and pitch deck.
+**Objective:** Produce the live demo script, demo video, and pitch deck.
 
 **Entry Conditions:**
 - Phase 5 is complete: demo path is frozen and runs cleanly
@@ -304,24 +315,29 @@ scope_cutter.mvp_demo_flow  → test_generator.mvp_demo_flow
 - Demo recording environment is prepared (notifications off, test data loaded)
 
 **Exit Conditions:**
+- Demo script is rehearsed and timing is verified within `demo_duration_seconds`
 - Demo video is recorded, reviewed, and uploaded to a permanent URL
 - Pitch deck is complete with speaker notes for every slide
 - Slide count and total speaking time verified against pitch duration limit
 - `judging_alignment` confirms every `evaluation_axis` is addressed in at least one slide
 
 **Skills (can run in parallel once implementation is frozen):**
+- [`hackathon-demo-script`](../skills/hackathon-demo-script/SKILL.md) — Generate rehearsable live demo narrative with spoken lines, transition cues, and wow-moment staging. *(new)*
 - [`hackathon-demo-video`](../skills/hackathon-demo-video/SKILL.md) — Script and record a time-coded demo video.
 - [`hackathon-pitchdeck`](../skills/hackathon-pitchdeck/SKILL.md) — Build slide deck with speaker notes and judging alignment.
 
 **Key Data Flow:**
 ```
-scope_cutter.mvp_demo_flow   → demo_video.mvp_demo_flow
+scope_cutter.mvp_demo_flow      → demo_script.mvp_demo_flow
+scope_cutter.mvp_demo_flow      → demo_video.mvp_demo_flow
+wow_detector.primary_wow_moment → demo_script.primary_wow_moment
 wow_detector.primary_wow_moment → demo_video.wow_factor
 wow_detector.primary_wow_moment → pitchdeck.wow_factor
+track_analyzer.evaluation_axes  → demo_script.evaluation_axes
 track_analyzer.evaluation_axes  → pitchdeck.evaluation_axes
 ```
 
-**Gate:** Demo video uploaded. Pitch deck slide count and timing are verified against pitch duration.
+**Gate:** Demo script rehearsed. Demo video uploaded. Pitch deck slide count and timing verified against pitch duration.
 
 **Templates:**
 - `templates/demo-script-template.md`
@@ -354,9 +370,9 @@ track_analyzer.evaluation_axes  → pitchdeck.evaluation_axes
 
 **Key Data Flow:**
 ```
-pitchdeck.slides             → judge_simulator.pitch_content
+pitchdeck.slides              → judge_simulator.pitch_content
 track_analyzer.evaluation_axes → judge_simulator.evaluation_axes
-scope_cutter.mvp_features    → judge_simulator.mvp_features
+scope_cutter.mvp_features     → judge_simulator.mvp_features
 ```
 
 **Key Outputs:**
@@ -373,12 +389,47 @@ scope_cutter.mvp_features    → judge_simulator.mvp_features
 
 ---
 
-## Phase 8: Submission
+## Phase 8: Deployment Prep
+
+**Objective:** Validate the deployment, load demo data, and confirm all go/no-go criteria before submission.
+
+**Entry Conditions:**
+- Phase 7 is complete: pitch is hardened
+- Project is deployed to the target platform (Vercel, Render, Railway, or local)
+- Demo video is recorded and uploaded
+- `demo_blockers` from `hackathon-test-generator` are known
+
+**Exit Conditions:**
+- All `go_no_go_criteria` pass
+- `deployment_checklist` has been executed top-to-bottom without failures
+- Demo data is loaded and the wow moment triggers in 3 consecutive test runs
+- All fallback assets (pre-recorded video, mock data) are ready and accessible
+
+**Skills:**
+- [`hackathon-deployment-prep`](../skills/hackathon-deployment-prep/SKILL.md) — Validate deployment, define demo environment, load test data, and confirm go/no-go. *(new)*
+
+**Key Data Flow:**
+```
+test_generator.demo_blockers    → deployment_prep.demo_blockers
+scope_cutter.mvp_demo_flow      → deployment_prep.mvp_demo_flow
+repo_bootstrap.deployment_config → deployment_prep.deployment_targets
+```
+
+**Key Outputs:**
+- `deployment_checklist` executed and all items passing
+- `go_no_go_criteria` all `PASS`
+- `fallback_plan` confirmed ready for every `demo_blocker`
+
+**Gate:** All `go_no_go_criteria` pass. Fallback plan is confirmed for every critical failure scenario.
+
+---
+
+## Phase 9: Submission
 
 **Objective:** Compile and validate all submission artifacts.
 
 **Entry Conditions:**
-- Phase 7 is complete: pitch is hardened and all `high` priority improvements addressed
+- Phase 8 is complete: all go/no-go criteria pass; deployment is stable
 - Demo video URL is confirmed live and accessible
 - Repository is public and README loads correctly
 - Submission platform account is created and project page is started
@@ -398,6 +449,7 @@ scope_cutter.mvp_features    → judge_simulator.mvp_features
 pitchdeck.opening_hook + slides → submission_prep.solution_summary
 demo_video output               → submission_prep.video_url
 repo_url                        → submission_prep.repo_url
+deployment_prep.demo_environment_plan.url → submission_prep.demo_url
 ```
 
 **Submission Deadline Rules:**
@@ -423,16 +475,22 @@ hackathon-event-parser  [Phase 0 — optional autonomous entry]
             │               └── hackathon-idea-scoring
             │                       └── hackathon-scope-cutter
             │                               ├── hackathon-wow-detector
+            │                               ├── hackathon-risk-analyzer  [NEW]
             │                               ├── hackathon-doc-writer
             │                               ├── hackathon-task-planner
-            │                               │       └── hackathon-code-implementer
-            │                               │               └── hackathon-test-generator
+            │                               │       └── hackathon-repo-bootstrap  [NEW]
+            │                               │               └── hackathon-code-implementer
+            │                               │                       ├── hackathon-milestone-monitor (×N)  [NEW]
+            │                               │                       └── hackathon-test-generator
+            │                               ├── hackathon-demo-script  [NEW]
             │                               ├── hackathon-demo-video
             │                               └── hackathon-pitchdeck
             │                                       └── hackathon-judge-simulator
-            │                                               └── hackathon-submission-prep
+            │                                               └── hackathon-deployment-prep  [NEW]
+            │                                                       └── hackathon-submission-prep
             └── (evaluation_axes feeds) hackathon-idea-scoring
                                         hackathon-wow-detector
+                                        hackathon-demo-script
                                         hackathon-pitchdeck
                                         hackathon-judge-simulator
 ```
@@ -447,11 +505,12 @@ hackathon-event-parser  [Phase 0 — optional autonomous entry]
 | 1. Track Understanding | H+0:15 → H+0:45 | H+0:15 → H+1:00 | H+0:20 → H+1:05 |
 | 2. Idea Development | H+0:45 → H+1:45 | H+1:00 → H+2:15 | H+1:05 → H+2:30 |
 | 3. Scope Definition | H+1:45 → H+2:15 | H+2:15 → H+3:15 | H+2:30 → H+4:15 |
-| 4. Project Planning | H+2:15 → H+2:45 | H+3:15 → H+4:15 | H+4:15 → H+5:15 |
-| 5. Implementation | H+2:45 → H+15 | H+4:15 → H+22 | H+5:15 → H+30 |
+| 4. Project Planning | H+2:15 → H+3:00 | H+3:15 → H+4:30 | H+4:15 → H+5:45 |
+| 5. Build | H+3:00 → H+15 | H+4:30 → H+22 | H+5:45 → H+30 |
 | 6. Demo Preparation | H+15 → H+18 | H+22 → H+26 | H+30 → H+36 |
 | 7. Evaluation | H+18 → H+20 | H+26 → H+28 | H+36 → H+38 |
-| 8. Submission | H+20 → H+21 | H+28 → H+30 | H+38 → H+40 |
+| 8. Deployment Prep | H+20 → H+21 | H+28 → H+29 | H+38 → H+39 |
+| 9. Submission | H+21 → H+22 | H+29 → H+30 | H+39 → H+40 |
 
 For detailed per-phase breakdowns, see the appropriate playbook:
 - [`24h-hackathon-playbook.md`](24h-hackathon-playbook.md)

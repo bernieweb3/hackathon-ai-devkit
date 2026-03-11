@@ -1,3 +1,8 @@
+---
+name: hackathon-doc-writer
+description: >-
+  Generate structured technical documentation artifacts including ADRs, PRDs, and feature specs for a hackathon project.
+---
 # hackathon-doc-writer
 
 ## Goal

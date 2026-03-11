@@ -1,3 +1,8 @@
+---
+name: hackathon-problem-space
+description: >-
+  Map problem domains, target users, pain points, and solution gaps for a hackathon project.
+---
 # hackathon-problem-space
 
 ## Goal

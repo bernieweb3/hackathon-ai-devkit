@@ -1,3 +1,8 @@
+---
+name: hackathon-idea-scoring
+description: >-
+  Score and rank candidate hackathon project ideas against judging criteria and team capabilities to select the top recommendation.
+---
 # hackathon-idea-scoring
 
 ## Goal

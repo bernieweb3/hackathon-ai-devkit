@@ -1,3 +1,8 @@
+---
+name: hackathon-event-parser
+description: >-
+  Parse a hackathon event URL to extract tracks, judging criteria, timeline, and sponsor tools for autonomous pipeline execution.
+---
 # hackathon-event-parser
 
 ## Goal

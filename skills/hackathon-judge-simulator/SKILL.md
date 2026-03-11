@@ -1,3 +1,8 @@
+---
+name: hackathon-judge-simulator
+description: >-
+  Simulate a panel of hackathon judges to generate adversarial questions, objections, and predicted scores for pitch hardening.
+---
 # hackathon-judge-simulator
 
 ## Goal

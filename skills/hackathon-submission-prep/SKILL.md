@@ -1,3 +1,8 @@
+---
+name: hackathon-submission-prep
+description: >-
+  Compile and validate all hackathon submission artifacts into a complete, polished package ready for platform upload.
+---
 # hackathon-submission-prep
 
 ## Goal

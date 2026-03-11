@@ -1,3 +1,8 @@
+---
+name: hackathon-scope-cutter
+description: >-
+  Reduce a hackathon project feature set to a shippable MVP within the time limit while preserving demo impact.
+---
 # hackathon-scope-cutter
 
 ## Goal

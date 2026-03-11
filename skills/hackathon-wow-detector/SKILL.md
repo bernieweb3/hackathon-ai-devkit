@@ -1,3 +1,8 @@
+---
+name: hackathon-wow-detector
+description: >-
+  Identify and amplify the single strongest wow-factor moment in a hackathon project for maximum judge impact.
+---
 # hackathon-wow-detector
 
 ## Goal

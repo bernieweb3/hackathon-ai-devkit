@@ -1,3 +1,8 @@
+---
+name: hackathon-pitchdeck
+description: >-
+  Construct a complete hackathon pitch deck narrative with slide content, speaker notes, and judging alignment.
+---
 # hackathon-pitchdeck
 
 ## Goal

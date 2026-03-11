@@ -1,3 +1,8 @@
+---
+name: hackathon-test-generator
+description: >-
+  Generate demo-path test cases and a manual verification checklist to prevent demo failures during judging.
+---
 # hackathon-test-generator
 
 ## Goal

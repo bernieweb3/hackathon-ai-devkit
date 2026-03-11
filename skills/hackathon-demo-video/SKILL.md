@@ -1,3 +1,8 @@
+---
+name: hackathon-demo-video
+description: >-
+  Produce a structured script and time-coded shot list for a hackathon demo video that showcases the core value within a strict time limit.
+---
 # hackathon-demo-video
 
 ## Goal

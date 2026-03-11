@@ -1,3 +1,8 @@
+---
+name: hackathon-code-implementer
+description: >-
+  Provide structured implementation guidance, code scaffolds, and done criteria for a hackathon project task.
+---
 # hackathon-code-implementer
 
 ## Goal

@@ -1,3 +1,8 @@
+---
+name: hackathon-idea-generator
+description: >-
+  Generate a diverse set of candidate project ideas aligned to a problem space and hackathon track constraints.
+---
 # hackathon-idea-generator
 
 ## Goal

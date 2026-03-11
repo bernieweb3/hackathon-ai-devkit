@@ -1,3 +1,8 @@
+---
+name: hackathon-track-analyzer
+description: >-
+  Parse hackathon track descriptions and sponsor briefs to extract structured constraints, evaluation criteria, and strategic opportunities.
+---
 # hackathon-track-analyzer
 
 ## Goal

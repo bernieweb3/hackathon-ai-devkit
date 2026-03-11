@@ -1,3 +1,8 @@
+---
+name: hackathon-task-planner
+description: >-
+  Decompose MVP scope into a time-boxed task list with assigned roles, dependencies, and a critical path.
+---
 # hackathon-task-planner
 
 ## Goal

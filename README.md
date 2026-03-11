@@ -18,6 +18,37 @@ Most teams fail not because their idea is weak, but because they:
 
 ---
 
+## Autonomous Agent Mode
+
+The fastest way to use this devkit — paste a hackathon URL and the agent runs the full pipeline.
+
+```
+Input:  hackathon event URL
+        team_size: 3
+        team_skills: ["Python", "React", "OpenAI API"]
+
+Agent steps:
+  1  Parse event page          → hackathon-event-parser
+  2  Extract tracks & criteria → hackathon-track-analyzer
+  3  Map problem space         → hackathon-problem-space
+  4  Generate ideas            → hackathon-idea-generator
+  5  Score and select idea     → hackathon-idea-scoring
+  6  Cut scope to MVP          → hackathon-scope-cutter
+  7  Identify wow moment       → hackathon-wow-detector
+  8  Write PRD + task plan     → hackathon-doc-writer + hackathon-task-planner
+  9  Implement prototype       → hackathon-code-implementer (×N tasks)
+ 10  Verify demo path          → hackathon-test-generator
+ 11  Build pitch + video       → hackathon-pitchdeck + hackathon-demo-video
+ 12  Simulate judging          → hackathon-judge-simulator
+ 13  Prepare submission        → hackathon-submission-prep
+
+Output: complete project brief, task plan, pitch deck, submission package
+```
+
+**Pipeline orchestration guide:** [`playbooks/hackathon-workflow.md`](playbooks/hackathon-workflow.md)
+
+---
+
 ## Overview
 
 **hackathon-ai-devkit** is a reusable collection of AI agent context modules (skills), knowledge files, templates, and playbooks designed to support every phase of a hackathon — from track analysis through final submission.

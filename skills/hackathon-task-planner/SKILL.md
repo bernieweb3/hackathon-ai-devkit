@@ -73,3 +73,94 @@ buffer_hours: <number>
 recommended_skills:
   - "<skill-name>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+mvp_features:
+  - feature: "GPT-4 check-in conversation"
+    estimated_hours: 4
+  - feature: "Session memory (Redis)"
+    estimated_hours: 5
+  - feature: "Crisis escalation (mocked)"
+    estimated_hours: 1
+tech_stack: ["Python", "FastAPI", "React", "OpenAI API", "Redis"]
+team_size: 3
+team_roles: ["backend", "frontend", "fullstack"]
+hackathon_duration_hours: 24
+start_offset_hours: 2
+```
+
+**Output:**
+```yaml
+tasks:
+  - id: "T-01"
+    title: "Set up FastAPI project and Redis"
+    feature: "Session memory"
+    role: "backend"
+    estimated_hours: 1
+    depends_on: []
+  - id: "T-02"
+    title: "Implement OpenAI chat endpoint"
+    feature: "GPT-4 check-in conversation"
+    role: "backend"
+    estimated_hours: 2
+    depends_on: ["T-01"]
+  - id: "T-03"
+    title: "Implement session memory read/write"
+    feature: "Session memory"
+    role: "backend"
+    estimated_hours: 3
+    depends_on: ["T-01"]
+  - id: "T-04"
+    title: "Build chat UI component"
+    feature: "GPT-4 check-in conversation"
+    role: "frontend"
+    estimated_hours: 3
+    depends_on: []
+  - id: "T-05"
+    title: "Wire frontend to chat API"
+    feature: "GPT-4 check-in conversation"
+    role: "fullstack"
+    estimated_hours: 1
+    depends_on: ["T-02", "T-04"]
+  - id: "T-06"
+    title: "Add crisis card component (mocked)"
+    feature: "Crisis escalation"
+    role: "frontend"
+    estimated_hours: 1
+    depends_on: ["T-04"]
+
+critical_path:
+  - "T-01"
+  - "T-02"
+  - "T-05"
+
+milestones:
+  - name: "Backend skeleton live"
+    target_hour: 7
+    deliverable: "FastAPI + Redis running; chat endpoint returns GPT-4 response"
+  - name: "Frontend connected"
+    target_hour: 11
+    deliverable: "Chat UI communicates with backend end-to-end"
+  - name: "Memory working"
+    target_hour: 16
+    deliverable: "AI recalls previous session context in demo flow"
+  - name: "Demo-ready"
+    target_hour: 19
+    deliverable: "Full demo flow runs cleanly 3× in a row"
+
+parallel_tracks:
+  - track: "Backend"
+    tasks: ["T-01", "T-02", "T-03"]
+  - track: "Frontend"
+    tasks: ["T-04", "T-06"]
+
+buffer_hours: 3.3
+
+recommended_skills:
+  - "hackathon-code-implementer"
+```

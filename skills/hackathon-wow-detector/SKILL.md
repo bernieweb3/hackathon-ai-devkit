@@ -72,3 +72,64 @@ judge_reaction_prediction: "<string>"
 
 differentiation_statement: "<string>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+project_title: "AnchorAI"
+target_user: "College students with anxiety"
+mvp_features:
+  - feature: "GPT-4 check-in conversation"
+  - feature: "Session memory — AI recalls prior emotional context"
+  - feature: "Crisis escalation card (mocked)"
+evaluation_axes:
+  - axis: "Innovation"
+    weight: "high"
+  - axis: "Impact"
+    weight: "high"
+  - axis: "Technical Execution"
+    weight: "medium"
+```
+
+**Output:**
+```yaml
+wow_moments:
+  - rank: 1
+    feature: "Session memory — AI recalls prior emotional context"
+    impact_score: 9
+    novelty_score: 8
+    judging_relevance: 9
+    combined_score: 26
+    description: "Judges will feel the emotional resonance of an AI that 'knows' the user — this feels like magic"
+  - rank: 2
+    feature: "Crisis escalation card"
+    impact_score: 7
+    novelty_score: 4
+    judging_relevance: 8
+    combined_score: 19
+    description: "Demonstrates responsible AI and real-world impact; earns trust from judges"
+
+primary_wow_moment:
+  feature: "Session memory — AI recalls prior emotional context"
+  description: "In a new chat session, the AI opens with a reference to the user's emotional state from a previous session without being prompted."
+  live_demonstrable: true
+
+amplification_tactics:
+  - tactic: "Contrast setup"
+    description: "Before showing memory, demonstrate a generic AI response with no context. Then switch to AnchorAI. The contrast makes the memory recall land 3× harder."
+  - tactic: "Narration pause"
+    description: "After the AI references prior context, stop talking for 2 seconds. Let judges process what they just saw."
+  - tactic: "Visual framing"
+    description: "Zoom into or highlight the specific phrase in the AI response that references prior context."
+
+demo_placement:
+  position: "38% (approximately 45 seconds into a 2-minute demo)"
+  context: "Immediately follows a neutral opening exchange to establish baseline AI behavior"
+
+judge_reaction_prediction: "Judges will lean forward and say 'wait, how does it know that?' — this triggers the key question that lets the team explain their technical approach."
+
+differentiation_statement: "Unlike every other mental health AI demo today, AnchorAI remembers what you told it last week and uses it to open the next conversation — without being asked."
+```

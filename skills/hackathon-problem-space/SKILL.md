@@ -70,3 +70,56 @@ market_signals:
 recommended_skills:
   - "<skill-name>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+track_summary: "Use AI to improve mental health outcomes for young adults."
+domain: "mental health / digital health"
+target_user_hint: "college students experiencing anxiety"
+constraints:
+  - "Must use OpenAI GPT-4 API"
+```
+
+**Output:**
+```yaml
+user_segments:
+  - segment: "College students"
+    profile: "Ages 18–22, high stress, low access to campus counseling"
+  - segment: "Young professionals"
+    profile: "Ages 23–30, work-related burnout, too busy for scheduled therapy"
+
+pain_points:
+  - segment: "College students"
+    pains:
+      - severity: "high"
+        description: "2–6 week wait times for campus counseling appointments"
+      - severity: "high"
+        description: "Stigma prevents help-seeking behavior"
+
+existing_solutions:
+  - name: "Woebot"
+    limitation: "Rigid scripted responses; no memory across sessions"
+  - name: "BetterHelp"
+    limitation: "Expensive ($60–$100/week); not accessible to students"
+  - name: "Headspace"
+    limitation: "Meditation only; does not address acute anxiety episodes"
+
+solution_gaps:
+  - "No affordable, always-available, context-aware emotional support for acute moments"
+  - "No peer-community facilitation layer between self-help and professional care"
+
+problem_statement: "How might we provide always-available emotional support for college students so that they can manage anxiety between professional appointments?"
+
+market_signals:
+  - source: "real"
+    signal: "40% of US college students reported anxiety as top mental health concern (ACHA 2023)"
+  - source: "[INFERRED]"
+    signal: "Rising demand for async, text-based support given phone anxiety in Gen Z"
+
+recommended_skills:
+  - "hackathon-idea-generator"
+```

@@ -3,6 +3,14 @@
 **Duration:** 36 hours
 **Philosophy:** One extra cycle for depth. Use it for the wow feature and the pitch — not for scope expansion.
 
+**Workflow reference:** [`hackathon-workflow.md`](hackathon-workflow.md)
+
+**Key knowledge files:**
+- [`hackathon-mvp-strategy.md`](../knowledge/hackathon-mvp-strategy.md) — scope cutting principles
+- [`hackathon-common-failures.md`](../knowledge/hackathon-common-failures.md) — failure patterns to avoid
+- [`hackathon-demo-psychology.md`](../knowledge/hackathon-demo-psychology.md) — how judges evaluate
+- [`hackathon-tools.md`](../knowledge/hackathon-tools.md) — rapid development tools
+
 ---
 
 ## Time Budget Summary

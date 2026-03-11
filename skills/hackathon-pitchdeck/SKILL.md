@@ -67,3 +67,71 @@ judging_alignment:
     addressed_in_slides:
       - <slide number>
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+project_title: "AnchorAI"
+tagline: "An AI companion that remembers your emotional journey so you never have to start over."
+problem_statement: "College students wait 6 weeks for counseling while anxiety compounds daily."
+solution_summary: "AnchorAI uses GPT-4 with persistent memory to provide empathetic, context-aware check-ins."
+wow_factor: "The AI recalls your emotional context from 3 days ago and adapts its tone in real time"
+pitch_duration_minutes: 3
+team_members: ["Alex (backend)", "Sam (frontend)", "Jordan (design)"]
+```
+
+**Output:**
+```yaml
+opening_hook: "What if you waited 6 weeks for help, and your anxiety got worse every day?"
+
+slides:
+  - number: 1
+    title: "The 6-Week Wait"
+    type: "problem"
+    bullets:
+      - "40% of students report anxiety as top concern"
+      - "Average campus counseling wait: 6 weeks"
+      - "Most give up before they're seen"
+    speaker_notes: "Open with the stat, then pause. Let it land."
+    judging_axes_addressed: ["Impact"]
+
+  - number: 2
+    title: "Meet AnchorAI"
+    type: "solution"
+    bullets:
+      - "Always available — no waitlist"
+      - "Remembers your emotional history"
+      - "Adapts tone to your current state"
+    speaker_notes: "One sentence, then say 'let me show you.'"
+    judging_axes_addressed: ["Innovation", "Impact"]
+
+  - number: 3
+    title: "Live Demo"
+    type: "demo"
+    bullets: []
+    speaker_notes: "Show the memory recall moment. Slow down. Let silence work."
+    judging_axes_addressed: ["Technical Execution", "Innovation"]
+
+  - number: 4
+    title: "What's Next"
+    type: "vision"
+    bullets:
+      - "Partnership with student counseling centers"
+      - "Crisis escalation to human counselors"
+      - "1M students underserved — this is the start"
+    speaker_notes: "End with the question: what if no student ever had to wait alone again?"
+    judging_axes_addressed: ["Impact"]
+
+closing_call_to_action: "No student should have to manage anxiety alone while waiting for help that may never come."
+
+judging_alignment:
+  - axis: "Innovation"
+    addressed_in_slides: [2, 3]
+  - axis: "Impact"
+    addressed_in_slides: [1, 2, 4]
+  - axis: "Technical Execution"
+    addressed_in_slides: [3]
+```

@@ -66,3 +66,81 @@ fallback_plan:
   trigger: "<condition>"
   action: "<what to do>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+project_title: "AnchorAI"
+tagline: "An AI companion that remembers your emotional journey."
+wow_factor: "AI recalls emotional context from 3 days ago and adapts tone in real time"
+video_duration_seconds: 120
+demo_environment: "web browser"
+voiceover: true
+mvp_demo_flow:
+  - step: 1
+    action: "User types 'I'm overwhelmed today'"
+    outcome: "AI responds empathetically"
+  - step: 2
+    action: "User mentions recurring work stress"
+    outcome: "AI references last week's conversation"
+  - step: 3
+    action: "User expresses hopelessness"
+    outcome: "Crisis resource card appears"
+```
+
+**Output:**
+```yaml
+wow_moment_timestamp: 45
+
+script:
+  - timestamp_start: 0
+    timestamp_end: 8
+    narration: "40% of college students live with anxiety. Most wait 6 weeks for help."
+  - timestamp_start: 8
+    timestamp_end: 15
+    narration: "AnchorAI is always available — and it remembers you."
+  - timestamp_start: 15
+    timestamp_end: 45
+    narration: "Watch what happens when a student checks in after a hard week."
+  - timestamp_start: 45
+    timestamp_end: 70
+    narration: "AnchorAI recalls last week's conversation — without being told."
+  - timestamp_start: 70
+    timestamp_end: 95
+    narration: "When a student signals distress, AnchorAI responds with care and resources."
+  - timestamp_start: 95
+    timestamp_end: 120
+    narration: "No waitlist. No starting over. AnchorAI — always there."
+
+shot_list:
+  - timestamp_start: 0
+    timestamp_end: 8
+    screen_content: "Stat card: '40% of students report anxiety. Average wait: 6 weeks.'"
+    action: "Hold on stat card"
+  - timestamp_start: 15
+    timestamp_end: 45
+    screen_content: "Chat interface — user types message"
+    action: "Type 'I'm feeling overwhelmed again this week'"
+  - timestamp_start: 45
+    timestamp_end: 70
+    screen_content: "AI response references 'last week's exam stress you mentioned'"
+    action: "Scroll to highlight the memory reference in the AI response"
+  - timestamp_start: 70
+    timestamp_end: 95
+    screen_content: "User types hopelessness message; crisis card slides in below response"
+    action: "Type message; pause on crisis card appearing"
+
+recording_checklist:
+  - "Notifications disabled on OS and browser"
+  - "Demo account pre-loaded with 1 prior session in Redis"
+  - "Screen resolution set to 1920×1080; browser zoom 125%"
+  - "Test data: prior session summary contains 'exam stress' phrase"
+  - "Run full demo flow once before recording"
+
+fallback_plan:
+  trigger: "OpenAI API fails to respond during recording"
+  action: "Use pre-recorded screen capture of the memory recall exchange as an overlay segment"
+```

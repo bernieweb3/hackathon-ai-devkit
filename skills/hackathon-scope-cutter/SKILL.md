@@ -71,3 +71,75 @@ scope_risk:
 recommended_skills:
   - "<skill-name>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+project_title: "AnchorAI"
+feature_wishlist:
+  - "User authentication and profiles"
+  - "GPT-4 emotional check-in conversation"
+  - "Session memory (recall past conversations)"
+  - "Mood trend dashboard"
+  - "Push notifications for daily check-ins"
+  - "Crisis escalation to hotline resources"
+  - "Onboarding quiz to personalize tone"
+core_mechanism: "GPT-4 conversation with persistent emotional context memory"
+hackathon_duration_hours: 24
+team_size: 3
+team_skills: ["Python", "React", "OpenAI API"]
+wow_factor: "AI recalls emotional context from past sessions and adapts tone in real time"
+```
+
+**Output:**
+```yaml
+mvp_features:
+  - feature: "GPT-4 emotional check-in conversation"
+    purpose: "Core mechanism — must ship"
+    fake_ok: false
+  - feature: "Session memory (recall past conversations)"
+    purpose: "Delivers the wow factor"
+    fake_ok: false
+  - feature: "Crisis escalation to hotline resources"
+    purpose: "Safety requirement visible to judges"
+    fake_ok: true
+
+deferred_features:
+  - feature: "User authentication and profiles"
+    cut_rationale: "3–4h cost; demo uses single hardcoded session"
+  - feature: "Mood trend dashboard"
+    cut_rationale: "Not in demo flow; 4h cost"
+  - feature: "Push notifications"
+    cut_rationale: "Backend complexity; irrelevant to live demo"
+  - feature: "Onboarding quiz"
+    cut_rationale: "Can be mocked with pre-set tone for demo"
+
+mvp_demo_flow:
+  - step: 1
+    action: "User opens app and types: 'I'm feeling really overwhelmed today'"
+    outcome: "AI responds empathetically with personalized opening"
+  - step: 2
+    action: "User describes a recurring work stress"
+    outcome: "AI references last week's similar conversation from memory"
+  - step: 3
+    action: "User expresses hopelessness"
+    outcome: "AI surfaces crisis resource card gracefully"
+
+time_budget:
+  - feature: "GPT-4 check-in conversation"
+    estimated_hours: 4
+  - feature: "Session memory"
+    estimated_hours: 5
+  - feature: "Crisis escalation (mocked)"
+    estimated_hours: 1
+
+scope_risk:
+  - "Memory retrieval latency may degrade demo experience on slow networks"
+
+recommended_skills:
+  - "hackathon-task-planner"
+  - "hackathon-wow-detector"
+```

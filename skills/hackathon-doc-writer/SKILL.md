@@ -53,3 +53,47 @@ missing_fields:
 document: |
   <Full Markdown document content>
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+document_type: "ADR"
+project_title: "AnchorAI"
+problem_statement: "How might we provide always-available emotional support for college students?"
+mvp_features:
+  - "GPT-4 emotional check-in conversation"
+  - "Session memory"
+tech_stack: ["Python", "FastAPI", "React", "OpenAI API", "Redis"]
+architecture_decisions:
+  - title: "Session memory storage"
+    context: "Need to persist conversation summaries between sessions"
+    options: ["Redis (in-memory)", "SQLite (file)", "OpenAI conversation history API"]
+    decision: "Redis"
+    rationale: "Fastest to set up; sufficient for demo; team familiar with it"
+```
+
+**Output:**
+```yaml
+document_type: "ADR"
+missing_fields: []
+document: |
+  # ADR-001: Session Memory Storage
+
+  **Date:** 2025-06-14
+  **Status:** Accepted
+
+  ## Context
+  AnchorAI must recall emotional context from past user sessions to deliver its core wow factor.
+  Memory must persist across browser refreshes for the demo.
+
+  ## Decision
+  Use Redis as an in-process session store keyed by a hardcoded demo user ID.
+
+  ## Consequences
+  - Positive: Setup takes <30 minutes; team knows Redis well
+  - Negative: Data is lost on server restart; not production-ready
+  - Risk: Redis unavailable on demo machine → mitigation: fallback to in-memory dict
+```

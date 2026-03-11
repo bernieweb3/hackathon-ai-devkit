@@ -72,3 +72,66 @@ gotchas:
 done_criteria:
   - "<verifiable condition>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+task_title: "Implement session memory read/write (T-03)"
+task_description: "Store and retrieve a rolling summary of the user's emotional state across chat sessions using Redis."
+tech_stack: ["Python", "FastAPI", "Redis", "OpenAI API"]
+mvp_demo_flow:
+  - step: 2
+    action: "User describes recurring work stress"
+    outcome: "AI references last week's similar conversation from memory"
+time_budget_hours: 3
+fake_ok: false
+```
+
+**Output:**
+```yaml
+implementation_plan:
+  - step: 1
+    action: "Install redis-py; add Redis client singleton to app startup"
+    risk: "normal"
+  - step: 2
+    action: "After each GPT-4 response, call GPT-4 to generate a 2-sentence session summary and write to Redis key user:{id}:summary"
+    risk: "normal"
+  - step: 3
+    action: "On each new conversation, prepend the stored summary to the system prompt"
+    risk: "[HIGH-RISK] — summary injection may push context window near limit; keep summary ≤100 tokens"
+  - step: 4
+    action: "Test by running two sessions and verifying AI references prior context"
+    risk: "normal"
+
+code_scaffolds:
+  - label: "Redis memory read/write"
+    language: "python"
+    snippet: |
+      import redis
+      r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+
+      def get_memory(user_id: str) -> str:
+          return r.get(f"user:{user_id}:summary") or ""
+
+      def save_memory(user_id: str, summary: str):
+          r.set(f"user:{user_id}:summary", summary, ex=86400)
+
+integration_points:
+  - component: "OpenAI chat endpoint (T-02)"
+    connection: "Prepend get_memory() result to system prompt on every request"
+
+shortcuts:
+  - shortcut: "Use a single hardcoded user_id='demo' for the hackathon"
+    trade_off: "No real multi-user support; acceptable for single-demo session"
+
+gotchas:
+  - "Redis not running on demo machine → add a startup health check with a clear error message"
+  - "Summary growing too long → hard-cap at 150 tokens before injection"
+
+done_criteria:
+  - "Starting a new chat session shows AI referencing content from the previous session"
+  - "Redis key exists and contains non-empty summary after first session ends"
+```

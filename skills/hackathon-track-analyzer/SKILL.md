@@ -72,3 +72,51 @@ disqualifiers:
 recommended_skills:
   - "<skill-name>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+track_description: "Build solutions that use AI to improve mental health outcomes for young adults."
+sponsor_briefs:
+  - "OpenAI: Best use of GPT-4 API for empathetic user interactions"
+judging_rubric: "Innovation (30%), Impact (30%), Technical execution (20%), Presentation (20%)"
+hackathon_duration_hours: 24
+```
+
+**Output:**
+```yaml
+track_summary: "Use AI to improve mental health outcomes for young adults."
+
+required_constraints:
+  - "Solution must demonstrably address mental health for ages 18–30"
+
+optional_constraints:
+  - "Bonus scoring for use of OpenAI GPT-4 API"
+
+sponsor_priorities:
+  - sponsor: "OpenAI"
+    priorities:
+      - "Empathetic, context-aware conversational responses"
+      - "Responsible AI usage with safety guardrails"
+
+evaluation_axes:
+  - axis: "Innovation"
+    weight: "high"
+    description: "Novel approach to mental health support beyond generic chatbots"
+  - axis: "Impact"
+    weight: "high"
+    description: "Measurable improvement in user wellbeing or access to resources"
+
+strategic_opportunities:
+  - "Underserved: peer-support facilitation rather than direct therapy replacement"
+
+disqualifiers:
+  - "Solutions that claim to diagnose or treat clinical conditions"
+
+recommended_skills:
+  - "hackathon-problem-space"
+  - "hackathon-idea-generator"
+```

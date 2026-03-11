@@ -75,3 +75,83 @@ risk_flags:
 recommended_skills:
   - "<skill-name>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+ideas:
+  - id: "idea-1"
+    title: "AnchorAI"
+    risk_level: "medium"
+  - id: "idea-3"
+    title: "CalmDraft"
+    risk_level: "low"
+evaluation_axes:
+  - axis: "Innovation"
+    weight: 1.5
+  - axis: "Impact"
+    weight: 1.5
+  - axis: "Technical Execution"
+    weight: 1.0
+team_skills: ["Python", "React", "OpenAI API"]
+hackathon_duration_hours: 24
+team_size: 3
+```
+
+**Output:**
+```yaml
+scored_ideas:
+  - id: "idea-1"
+    title: "AnchorAI"
+    scores:
+      - axis: "Innovation"
+        score: 4
+        notes: "Memory layer is novel; similar products exist but not for this audience"
+      - axis: "Impact"
+        score: 5
+        notes: "Addresses acute unmet need at scale"
+      - axis: "Technical Execution"
+        score: 3
+        notes: "Memory persistence adds integration complexity"
+    penalties: []
+    total_score: 17.5
+
+  - id: "idea-3"
+    title: "CalmDraft"
+    scores:
+      - axis: "Innovation"
+        score: 3
+        notes: "CBT journaling apps exist; GPT reframing is incremental"
+      - axis: "Impact"
+        score: 4
+        notes: "Reaches self-directed users effectively"
+      - axis: "Technical Execution"
+        score: 5
+        notes: "Well within team skills; highly shippable in 24h"
+    penalties: []
+    total_score: 16.5
+
+ranking:
+  - rank: 1
+    id: "idea-1"
+    total_score: 17.5
+  - rank: 2
+    id: "idea-3"
+    total_score: 16.5
+
+top_recommendation:
+  id: "idea-1"
+  title: "AnchorAI"
+  rationale: "Highest combined score on weighted innovation and impact axes; team has required skills."
+
+risk_flags:
+  - id: "idea-1"
+    risks:
+      - "Memory persistence implementation may exceed time budget if OpenAI context window approach is chosen"
+
+recommended_skills:
+  - "hackathon-scope-cutter"
+```

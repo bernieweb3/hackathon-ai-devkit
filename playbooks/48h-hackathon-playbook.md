@@ -3,6 +3,14 @@
 **Duration:** 48 hours
 **Philosophy:** The extra time is for depth, iteration, and pitch excellence — not for feature creep. Teams that use 48 hours wisely are dangerous competitors.
 
+**Workflow reference:** [`hackathon-workflow.md`](hackathon-workflow.md)
+
+**Key knowledge files:**
+- [`hackathon-mvp-strategy.md`](../knowledge/hackathon-mvp-strategy.md) — scope cutting principles
+- [`hackathon-common-failures.md`](../knowledge/hackathon-common-failures.md) — failure patterns to avoid
+- [`hackathon-demo-psychology.md`](../knowledge/hackathon-demo-psychology.md) — how judges evaluate
+- [`hackathon-tools.md`](../knowledge/hackathon-tools.md) — rapid development tools
+
 ---
 
 ## Time Budget Summary

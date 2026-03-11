@@ -82,3 +82,83 @@ pitch_improvements:
     action: "<what to change>"
     priority: "<high|medium|low>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+project_title: "AnchorAI"
+problem_statement: "College students wait 6 weeks for counseling while anxiety compounds."
+solution_summary: "GPT-4 companion with Redis-backed session memory for persistent emotional context."
+mvp_features: ["GPT-4 check-in conversation", "Session memory", "Crisis escalation (mocked)"]
+tech_stack: ["Python", "FastAPI", "React", "Redis", "OpenAI GPT-4"]
+evaluation_axes:
+  - axis: "Innovation"
+  - axis: "Impact"
+  - axis: "Technical Execution"
+```
+
+**Output:**
+```yaml
+judge_personas_used:
+  - persona: "Technical judge"
+    priorities: ["Working implementation", "Appropriate tech choices", "Scalability awareness"]
+  - persona: "Impact/domain judge"
+    priorities: ["Real user need", "Safety guardrails", "Clinical validity concerns"]
+  - persona: "Business judge"
+    priorities: ["Market size", "Differentiation", "Go-to-market path"]
+
+questions:
+  - judge_persona: "Technical judge"
+    question: "How does the memory actually work — what are you storing and retrieving?"
+    recommended_answer: "We store a GPT-4 generated summary of each session in Redis, keyed by user ID. On the next session, we prepend that summary to the system prompt. It's simple and it works for the demo."
+    difficulty: "medium"
+  - judge_persona: "Impact/domain judge"
+    question: "Is this safe? What happens if someone is in genuine crisis?"
+    recommended_answer: "We detect distress signals and surface hotline resources immediately. We're explicit that AnchorAI is not a therapist. In the roadmap, we escalate to human counselors."
+    difficulty: "hard"
+  - judge_persona: "Business judge"
+    question: "How is this different from Woebot or BetterHelp?"
+    recommended_answer: "Woebot has no memory and uses rigid scripts. BetterHelp is $80/week. AnchorAI is the only free, always-available companion that actually knows your history."
+    difficulty: "medium"
+
+objections:
+  - objection: "This could give vulnerable users dangerous advice"
+    likelihood: "high"
+    rebuttal_strategy: "Acknowledge directly. Explain the safety guardrails and the explicit non-therapist framing. Offer to show the crisis card in the demo."
+  - objection: "Memory feature is just system prompt injection — not novel"
+    likelihood: "medium"
+    rebuttal_strategy: "Agree it's a simple mechanism. Pivot to impact: the novelty is the UX, not the implementation. Show the user experience, not the code."
+
+predicted_scores:
+  - axis: "Innovation"
+    score: 4
+    reasoning: "Memory-based continuity in mental health context is genuinely novel for a hackathon"
+  - axis: "Impact"
+    score: 5
+    reasoning: "Large, underserved audience with real demonstrated need"
+  - axis: "Technical Execution"
+    score: 4
+    reasoning: "Working live demo with real API integration; Redis memory functions correctly"
+
+overall_verdict:
+  impression: "Strong emotional narrative with a memorable live demo moment. Safety question will come up — being prepared for it is the difference between winning and not."
+  ranking_likelihood: "top-3"
+  key_strengths:
+    - "Emotionally resonant problem framing"
+    - "Live working wow moment (memory recall)"
+    - "Clear differentiation from existing tools"
+  key_weaknesses:
+    - "Safety and clinical validity will be scrutinized"
+    - "Business model not addressed"
+
+pitch_improvements:
+  - issue: "No mention of how AnchorAI avoids causing harm"
+    action: "Add one sentence to the solution slide: 'AnchorAI is not a therapist — it's a bridge to one.'"
+    priority: "high"
+  - issue: "No business or monetization framing"
+    action: "Add one bullet to vision slide: 'Free tier for students; licensed model for universities'"
+    priority: "medium"
+```

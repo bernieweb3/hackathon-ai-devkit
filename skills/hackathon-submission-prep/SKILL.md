@@ -79,3 +79,90 @@ last_mile_actions:
     action: "<what to do>"
     estimated_minutes: <number>
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+project_title: "AnchorAI"
+tagline: "An AI companion that remembers your emotional journey so you never have to start over."
+problem_statement: "College students wait 6 weeks for counseling while anxiety compounds daily."
+solution_summary: "GPT-4 with Redis-backed session memory for always-available, context-aware emotional support."
+tech_stack: ["Python", "FastAPI", "React", "Redis", "OpenAI GPT-4"]
+team_members:
+  - name: "Alex"
+    role: "Backend"
+  - name: "Sam"
+    role: "Frontend"
+  - name: "Jordan"
+    role: "Design"
+repo_url: "https://github.com/team/anchorai"
+track: "AI for Mental Health"
+submission_platform: "Devpost"
+```
+
+**Output:**
+```yaml
+submission_description: |
+  ## Inspiration
+  40% of college students report anxiety as their top health concern, yet the average campus counseling wait is 6 weeks. Most students give up before they're seen.
+
+  ## What It Does
+  AnchorAI is a GPT-4 powered emotional support companion that remembers your history across sessions. It opens every conversation with context from your last check-in — so you never have to re-explain your situation.
+
+  ## How We Built It
+  Python FastAPI backend with OpenAI GPT-4 API. Session summaries stored in Redis and injected into the system prompt. React frontend with a clean single-page chat UI.
+
+  ## Challenges
+  Getting memory injection to stay within GPT-4 context window limits required hard-capping summaries at 150 tokens and testing multiple summarization prompts.
+
+  ## Accomplishments
+  Working live demo with genuine session memory recall. Crisis escalation card renders on distress detection.
+
+  ## What We Learned
+  The emotional framing of AI responses matters more than technical sophistication. Users notice tone before they notice features.
+
+  ## What's Next
+  Human counselor escalation. University licensing. Multi-session longitudinal mood tracking.
+
+short_description: "AnchorAI: GPT-4 emotional support companion that remembers your mental health journey. No waitlist. No starting over. Always there. 🧠"
+
+artifact_checklist:
+  - item: "Source code repository"
+    status: "complete"
+    url_or_value: "https://github.com/team/anchorai"
+  - item: "Demo video"
+    status: "complete"
+    url_or_value: "https://youtube.com/watch?v=demo"
+  - item: "Live demo URL"
+    status: "incomplete"
+    url_or_value: ""
+  - item: "README with setup instructions"
+    status: "complete"
+    url_or_value: "https://github.com/team/anchorai#readme"
+
+missing_artifacts:
+  - item: "Live demo URL"
+    blocking: false
+    action_required: "Deploy to Railway or Render; update Devpost submission with URL"
+
+submission_quality_score:
+  score: 8
+  breakdown:
+    completeness: 9
+    clarity: 8
+    impact_framing: 8
+
+last_mile_actions:
+  - priority: 1
+    action: "Deploy live demo to Railway and update Devpost URL field"
+    estimated_minutes: 20
+  - priority: 2
+    action: "Add 3 screenshots to Devpost gallery"
+    estimated_minutes: 10
+  - priority: 3
+    action: "Confirm repo is public and README loads correctly"
+    estimated_minutes: 5
+```

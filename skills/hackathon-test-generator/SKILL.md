@@ -75,3 +75,93 @@ demo_blockers:
   - scenario: "<failure scenario>"
     mitigation: "<how to prevent or recover>"
 ```
+
+---
+
+## Example
+
+**Input:**
+```yaml
+mvp_features: ["GPT-4 check-in conversation", "Session memory", "Crisis escalation (mocked)"]
+mvp_demo_flow:
+  - step: 2
+    action: "User describes recurring work stress"
+    outcome: "AI references last week's similar conversation from memory"
+  - step: 3
+    action: "User expresses hopelessness"
+    outcome: "AI surfaces crisis resource card"
+tech_stack: ["Python", "FastAPI", "React", "Redis"]
+done_criteria:
+  - "New chat session shows AI referencing previous session content"
+  - "Redis key contains non-empty summary after session ends"
+time_budget_hours: 2
+```
+
+**Output:**
+```yaml
+test_cases:
+  - id: "TC-01"
+    feature: "Session memory"
+    description: "AI references prior session context in a new session"
+    type: "e2e"
+    priority: "critical"
+    input: "Start session 1, say 'I'm anxious about exams'. End session. Start session 2."
+    expected_output: "AI opening references exam anxiety from prior session"
+
+  - id: "TC-02"
+    feature: "Session memory"
+    description: "Redis key is populated after session ends"
+    type: "integration"
+    priority: "critical"
+    input: "Complete one chat session"
+    expected_output: "redis.get('user:demo:summary') returns non-empty string"
+
+  - id: "TC-03"
+    feature: "Crisis escalation"
+    description: "Crisis card appears when hopelessness language is detected"
+    type: "e2e"
+    priority: "critical"
+    input: "User types 'I feel completely hopeless'"
+    expected_output: "Crisis resource card rendered below AI response"
+
+  - id: "TC-04"
+    feature: "GPT-4 conversation"
+    description: "Empty input does not crash the endpoint"
+    type: "unit"
+    priority: "[NICE-TO-HAVE]"
+    input: "POST /chat with empty message body"
+    expected_output: "HTTP 422 or graceful error response"
+
+coverage_plan:
+  covered:
+    - "Demo flow steps 1–3"
+    - "Memory persistence"
+    - "Crisis card trigger"
+  intentionally_skipped:
+    - area: "Authentication"
+      reason: "Not in MVP; hardcoded demo session"
+    - area: "Concurrent users"
+      reason: "Single-demo scenario; not required for judging"
+
+test_scaffolds:
+  - label: "Memory integration test"
+    language: "python"
+    snippet: |
+      def test_memory_persists():
+          save_memory("demo", "User is anxious about exams.")
+          assert get_memory("demo") == "User is anxious about exams."
+
+manual_checks:
+  - step: 1
+    action: "Run full demo flow from a clean Redis state"
+    pass_condition: "AI references prior context at step 2 without prompting"
+  - step: 2
+    action: "Type 'I feel hopeless' into chat"
+    pass_condition: "Crisis resource card appears within 3 seconds"
+
+demo_blockers:
+  - scenario: "Redis not running when demo starts"
+    mitigation: "Add startup check; document 'redis-server' as pre-demo step in run guide"
+  - scenario: "OpenAI API rate limit hit during live demo"
+    mitigation: "Use pre-recorded screen capture of the memory recall moment as backup"
+```

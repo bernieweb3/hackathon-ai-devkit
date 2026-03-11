@@ -4,11 +4,74 @@ A modular AI agent skill suite for accelerating hackathon development workflows.
 
 ---
 
+## Problem Statement
+
+Hackathons are time-compressed competitions where developers must simultaneously understand a problem space, generate viable ideas, build a working prototype, and deliver a compelling pitch — all within 24–48 hours.
+
+Most teams fail not because their idea is weak, but because they:
+- spend too long on ideation and lose implementation time
+- build too many features and ship nothing cleanly
+- neglect the demo and pitch until the final hour
+- walk into judging unprepared for adversarial questions
+
+**hackathon-ai-devkit** provides structured AI agent skills that eliminate these failure modes by giving teams a repeatable, agent-assisted workflow from track analysis through final submission.
+
+---
+
 ## Overview
 
 **hackathon-ai-devkit** is a reusable collection of AI agent context modules (skills), knowledge files, templates, and playbooks designed to support every phase of a hackathon — from track analysis through final submission.
 
 Each skill is a self-contained specification that AI agents load to perform a focused task in the hackathon workflow.
+
+---
+
+## Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   hackathon-ai-devkit                   │
+├──────────────┬──────────────┬────────────┬─────────────┤
+│   skills/    │  knowledge/  │ templates/ │  playbooks/ │
+│              │              │            │             │
+│ 14 SKILL.md  │ 9 reference  │ 5 document │ 4 workflow  │
+│ agent specs  │ knowledge    │ templates  │ guides      │
+│              │ files        │            │             │
+└──────────────┴──────────────┴────────────┴─────────────┘
+```
+
+**Skills** are the core unit. Each `SKILL.md` defines a single agent capability with:
+- Typed inputs and outputs
+- Enforcement rules
+- YAML output format
+- Concrete example
+
+**Knowledge files** provide reference information agents load as context — judging patterns, winning strategies, demo psychology, and tool recommendations.
+
+**Templates** are structured Markdown documents agents populate with project-specific content (PRDs, ADRs, pitch decks, demo scripts).
+
+**Playbooks** are time-boxed execution guides that sequence skills, knowledge, and templates into a full hackathon strategy.
+
+---
+
+## Workflow Overview
+
+```
+Track → Idea → MVP → Code → Demo → Submission
+```
+
+| Step | Phase | Skills |
+|---|---|---|
+| 1 | **Track Understanding** | `hackathon-track-analyzer` |
+| 2 | **Idea Development** | `hackathon-problem-space` → `hackathon-idea-generator` → `hackathon-idea-scoring` |
+| 3 | **Scope Definition** | `hackathon-scope-cutter` → `hackathon-wow-detector` |
+| 4 | **Project Planning** | `hackathon-doc-writer` → `hackathon-task-planner` |
+| 5 | **Implementation** | `hackathon-code-implementer` → `hackathon-test-generator` |
+| 6 | **Demo Preparation** | `hackathon-demo-video` → `hackathon-pitchdeck` |
+| 7 | **Evaluation** | `hackathon-judge-simulator` |
+| 8 | **Submission** | `hackathon-submission-prep` |
+
+**Full orchestration guide:** [`playbooks/hackathon-workflow.md`](playbooks/hackathon-workflow.md)
 
 ---
 
@@ -41,7 +104,10 @@ hackathon-ai-devkit/
 │   ├── hackathon-demo-patterns.md
 │   ├── hackathon-mvp-strategy.md
 │   ├── hackathon-pitch-strategy.md
-│   └── hackathon-submission-guidelines.md
+│   ├── hackathon-submission-guidelines.md
+│   ├── hackathon-common-failures.md    # NEW: failure pattern catalogue
+│   ├── hackathon-demo-psychology.md    # NEW: judge psychology and demo techniques
+│   └── hackathon-tools.md             # NEW: rapid development tool recommendations
 │
 ├── templates/                       # Reusable document templates
 │   ├── ADR-template.md
@@ -51,6 +117,7 @@ hackathon-ai-devkit/
 │   └── demo-script-template.md
 │
 └── playbooks/                       # Time-boxed strategy playbooks
+    ├── hackathon-workflow.md          # NEW: master skill orchestration guide
     ├── 24h-hackathon-playbook.md
     ├── 36h-hackathon-playbook.md
     └── 48h-hackathon-playbook.md
@@ -123,6 +190,13 @@ Load knowledge files as background context for your agent:
 ```
 knowledge/hackathon-winning-patterns.md
 knowledge/hackathon-judging-criteria.md
+knowledge/hackathon-demo-patterns.md
+knowledge/hackathon-mvp-strategy.md
+knowledge/hackathon-pitch-strategy.md
+knowledge/hackathon-submission-guidelines.md
+knowledge/hackathon-common-failures.md
+knowledge/hackathon-demo-psychology.md
+knowledge/hackathon-tools.md
 ```
 
 ### Use Templates

@@ -181,3 +181,17 @@ demo_blockers:
   - scenario: "OpenAI API rate limit hit during live demo"
     mitigation: "Use pre-recorded screen capture of the memory recall moment as backup"
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-demo-patterns.md`
+- `knowledge/hackathon-common-failures.md`
+- `knowledge/hackathon-mvp-strategy.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

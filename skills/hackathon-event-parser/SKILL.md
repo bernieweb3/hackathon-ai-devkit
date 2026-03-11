@@ -173,7 +173,21 @@ next_skill: "hackathon-track-analyzer"
 
 ---
 
-## Example
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-tools.md`
+- `knowledge/hackathon-judging-criteria.md`
+- `knowledge/hackathon-winning-patterns.md`
+- `knowledge/hackathon-submission-guidelines.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`
+- `playbooks/24h-hackathon-playbook.md`
+- `playbooks/36h-hackathon-playbook.md`
+- `playbooks/48h-hackathon-playbook.md`
 
 **Input:**
 ```yaml

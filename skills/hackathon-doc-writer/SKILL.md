@@ -113,3 +113,22 @@ document: |
   - Negative: Data is lost on server restart; not production-ready
   - Risk: Redis unavailable on demo machine → mitigation: fallback to in-memory dict
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-reference-architecture.md`
+- `knowledge/hackathon-mvp-strategy.md`
+
+### Templates
+
+- `templates/ADR-template.md`
+- `templates/PRD-template.md`
+- `templates/feature-spec-template.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

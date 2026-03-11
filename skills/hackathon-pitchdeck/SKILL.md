@@ -151,3 +151,22 @@ judging_alignment:
   - axis: "Technical Execution"
     addressed_in_slides: [3]
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-pitch-strategy.md`
+- `knowledge/hackathon-demo-psychology.md`
+- `knowledge/hackathon-judging-criteria.md`
+- `knowledge/hackathon-winning-patterns.md`
+
+### Templates
+
+- `templates/pitchdeck-outline.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

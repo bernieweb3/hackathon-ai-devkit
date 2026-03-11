@@ -149,3 +149,19 @@ judge_reaction_prediction: "Judges will lean forward and say 'wait, how does it 
 
 differentiation_statement: "Unlike every other mental health AI demo today, AnchorAI remembers what you told it last week and uses it to open the next conversation — without being asked."
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-demo-psychology.md`
+- `knowledge/hackathon-demo-patterns.md`
+- `knowledge/hackathon-judging-criteria.md`
+- `knowledge/hackathon-winning-patterns.md`
+- `knowledge/hackathon-pitch-strategy.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

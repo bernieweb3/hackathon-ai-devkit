@@ -136,3 +136,21 @@ recommended_skills:
   - "hackathon-problem-space"
   - "hackathon-idea-generator"
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-judging-criteria.md`
+- `knowledge/hackathon-winning-patterns.md`
+- `knowledge/hackathon-tools.md`
+- `knowledge/hackathon-common-failures.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`
+- `playbooks/24h-hackathon-playbook.md`
+- `playbooks/36h-hackathon-playbook.md`
+- `playbooks/48h-hackathon-playbook.md`

@@ -160,3 +160,21 @@ fallback_plan:
   trigger: "OpenAI API fails to respond during recording"
   action: "Use pre-recorded screen capture of the memory recall exchange as an overlay segment"
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-demo-psychology.md`
+- `knowledge/hackathon-demo-patterns.md`
+- `knowledge/hackathon-pitch-strategy.md`
+
+### Templates
+
+- `templates/demo-script-template.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

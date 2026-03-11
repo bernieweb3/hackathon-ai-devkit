@@ -180,3 +180,21 @@ buffer_hours: 3.3
 recommended_skills:
   - "hackathon-code-implementer"
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-mvp-strategy.md`
+- `knowledge/hackathon-reference-architecture.md`
+- `knowledge/hackathon-common-failures.md`
+- `knowledge/hackathon-tools.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`
+- `playbooks/24h-hackathon-playbook.md`
+- `playbooks/36h-hackathon-playbook.md`
+- `playbooks/48h-hackathon-playbook.md`

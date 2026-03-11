@@ -140,3 +140,18 @@ diversity_axes:
 recommended_skills:
   - "hackathon-idea-scoring"
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-winning-patterns.md`
+- `knowledge/hackathon-mvp-strategy.md`
+- `knowledge/hackathon-judging-criteria.md`
+- `knowledge/hackathon-tools.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

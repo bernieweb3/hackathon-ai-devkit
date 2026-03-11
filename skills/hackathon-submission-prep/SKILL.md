@@ -182,3 +182,17 @@ last_mile_actions:
     action: "Confirm repo is public and README loads correctly"
     estimated_minutes: 5
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-submission-guidelines.md`
+- `knowledge/hackathon-winning-patterns.md`
+- `knowledge/hackathon-pitch-strategy.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

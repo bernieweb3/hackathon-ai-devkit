@@ -151,3 +151,18 @@ done_criteria:
   - "Starting a new chat session shows AI referencing content from the previous session"
   - "Redis key exists and contains non-empty summary after first session ends"
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-reference-architecture.md`
+- `knowledge/hackathon-tools.md`
+- `knowledge/hackathon-mvp-strategy.md`
+- `knowledge/hackathon-common-failures.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

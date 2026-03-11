@@ -178,3 +178,18 @@ pitch_improvements:
     action: "Add one bullet to vision slide: 'Free tier for students; licensed model for universities'"
     priority: "medium"
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-judging-criteria.md`
+- `knowledge/hackathon-pitch-strategy.md`
+- `knowledge/hackathon-winning-patterns.md`
+- `knowledge/hackathon-demo-psychology.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

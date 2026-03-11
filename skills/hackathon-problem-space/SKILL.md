@@ -139,3 +139,18 @@ market_signals:
 recommended_skills:
   - "hackathon-idea-generator"
 ```
+
+---
+
+## Context Files
+
+### Knowledge Base
+
+- `knowledge/hackathon-judging-criteria.md`
+- `knowledge/hackathon-winning-patterns.md`
+- `knowledge/hackathon-mvp-strategy.md`
+- `knowledge/hackathon-common-failures.md`
+
+### Playbooks
+
+- `playbooks/hackathon-workflow.md`

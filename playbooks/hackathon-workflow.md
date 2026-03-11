@@ -33,6 +33,17 @@ Track Understanding → Idea Development → Scope Definition → Project Planni
 
 **Objective:** Extract the judging environment before generating any ideas.
 
+**Entry Conditions:**
+- Hackathon event URL, brief, or track description is available
+- Hackathon duration in hours is known
+- At least one of: track description text, sponsor brief, or judging rubric is accessible
+
+**Exit Conditions:**
+- `evaluation_axes` are extracted and confirmed
+- `required_constraints` are documented
+- `disqualifiers` are identified
+- `recommended_skills` list is produced for Phase 2
+
 **Skills:**
 - [`hackathon-track-analyzer`](../skills/hackathon-track-analyzer/SKILL.md) — Parse track description, sponsor briefs, and judging rubric into structured constraints and evaluation axes.
 
@@ -61,6 +72,17 @@ Track Understanding → Idea Development → Scope Definition → Project Planni
 
 **Objective:** Systematically generate and select the best project idea.
 
+**Entry Conditions:**
+- Phase 1 is complete: `track_summary`, `required_constraints`, and `evaluation_axes` are available
+- Team size and hackathon duration are confirmed
+- Tech stack preferences or constraints are known
+
+**Exit Conditions:**
+- At least 3 candidate ideas have been generated
+- All ideas have been scored against `evaluation_axes`
+- One idea is selected as `top_recommendation` with documented rationale
+- Team has formally committed to the selected idea — no changes after this point
+
 **Skills (run in sequence):**
 1. [`hackathon-problem-space`](../skills/hackathon-problem-space/SKILL.md) — Map target users, pain points, and solution gaps.
 2. [`hackathon-idea-generator`](../skills/hackathon-idea-generator/SKILL.md) — Produce 3–7 candidate ideas that address the problem space.
@@ -87,6 +109,18 @@ track_analyzer.evaluation_axes → idea_scoring.evaluation_axes
 
 **Objective:** Reduce the idea to a shippable MVP and identify the wow moment.
 
+**Entry Conditions:**
+- Phase 2 is complete: `top_recommendation` is locked and the team has committed
+- `core_mechanism` and `wow_factor` hypotheses are known from idea scoring
+- Feature wishlist has been drafted (even informally)
+
+**Exit Conditions:**
+- `mvp_features` list is finalized — no additions after this point
+- `deferred_features` are explicitly documented
+- `mvp_demo_flow` is locked as the canonical demo sequence
+- `primary_wow_moment` is identified and its placement in the demo is confirmed
+- `time_budget` per feature is within 70% of remaining hackathon hours
+
 **Skills (run in sequence):**
 1. [`hackathon-scope-cutter`](../skills/hackathon-scope-cutter/SKILL.md) — Cut features to MVP; define demo flow and time budget.
 2. [`hackathon-wow-detector`](../skills/hackathon-wow-detector/SKILL.md) — Identify and amplify the primary wow moment.
@@ -109,6 +143,19 @@ track_analyzer.evaluation_axes  → wow_detector.evaluation_axes
 ## Phase 4: Project Planning
 
 **Objective:** Document decisions and sequence work into executable tasks.
+
+**Entry Conditions:**
+- Phase 3 is complete: `mvp_features`, `mvp_demo_flow`, and `time_budget` are locked
+- Tech stack has been selected
+- Team roles are defined or inferable from team composition
+
+**Exit Conditions:**
+- PRD document is drafted with success metrics
+- At least one ADR exists for the primary architectural decision
+- Full task list is produced with estimates, roles, and dependencies
+- `critical_path` is identified
+- `milestones` are set at 25%, 50%, 75%, and 90% of remaining time
+- Every team member has at least one assigned task
 
 **Skills (run in parallel or sequence):**
 - [`hackathon-doc-writer`](../skills/hackathon-doc-writer/SKILL.md) — Generate PRD and key ADRs for architectural decisions.
@@ -140,6 +187,19 @@ scope_cutter.mvp_demo_flow  → doc_writer.mvp_features
 
 **Objective:** Build the demo path. Protect the wow feature.
 
+**Entry Conditions:**
+- Phase 4 is complete: task list with estimates and critical path is ready
+- Tech stack and architecture decisions are documented
+- All team members have assigned tasks and understand their dependencies
+- Development environment is set up and running
+
+**Exit Conditions:**
+- All MVP features are implemented
+- Full `mvp_demo_flow` runs end-to-end without crashing
+- All `demo_blockers` from `hackathon-test-generator` are resolved
+- `done_criteria` for every task are verified
+- Demo path is frozen — no new feature changes after this gate
+
 **Skills (iterate per task):**
 - [`hackathon-code-implementer`](../skills/hackathon-code-implementer/SKILL.md) — Invoke per task from the task planner. Get implementation plan, code scaffolds, and done criteria.
 - [`hackathon-test-generator`](../skills/hackathon-test-generator/SKILL.md) — Invoke once the demo flow is connected. Generate demo-blocking test cases and manual verification checklist.
@@ -164,6 +224,7 @@ scope_cutter.mvp_demo_flow  → test_generator.mvp_demo_flow
 
 **Recommended Knowledge:**
 - `knowledge/hackathon-tools.md`
+- `knowledge/hackathon-reference-architecture.md`
 - `knowledge/hackathon-common-failures.md` (technical failure patterns)
 - `knowledge/hackathon-mvp-strategy.md`
 
@@ -172,6 +233,18 @@ scope_cutter.mvp_demo_flow  → test_generator.mvp_demo_flow
 ## Phase 6: Demo Preparation
 
 **Objective:** Produce the demo video and pitch deck.
+
+**Entry Conditions:**
+- Phase 5 is complete: demo path is frozen and runs cleanly
+- `primary_wow_moment` and `mvp_demo_flow` are confirmed from Phase 3
+- Pitch duration (minutes) is known
+- Demo recording environment is prepared (notifications off, test data loaded)
+
+**Exit Conditions:**
+- Demo video is recorded, reviewed, and uploaded to a permanent URL
+- Pitch deck is complete with speaker notes for every slide
+- Slide count and total speaking time verified against pitch duration limit
+- `judging_alignment` confirms every `evaluation_axis` is addressed in at least one slide
 
 **Skills (can run in parallel once implementation is frozen):**
 - [`hackathon-demo-video`](../skills/hackathon-demo-video/SKILL.md) — Script and record a time-coded demo video.
@@ -202,6 +275,17 @@ track_analyzer.evaluation_axes  → pitchdeck.evaluation_axes
 
 **Objective:** Simulate judging and harden the pitch against adversarial questions.
 
+**Entry Conditions:**
+- Phase 6 is complete: pitch deck is drafted and demo video is uploaded
+- `evaluation_axes` from Phase 1 are available
+- At least one rehearsal of the pitch has been completed
+
+**Exit Conditions:**
+- All `high` priority `pitch_improvements` have been addressed in the deck
+- Top 5 hard questions from `judge_simulator` have written answers rehearsed by the presenter
+- All `objections` have documented `rebuttal_strategy` entries the team can recall under pressure
+- `predicted_scores` reviewed; any axis below 3/5 has a remediation plan
+
 **Skills:**
 - [`hackathon-judge-simulator`](../skills/hackathon-judge-simulator/SKILL.md) — Generate judge personas, expected questions, objections, and predicted scores.
 
@@ -229,6 +313,19 @@ scope_cutter.mvp_features    → judge_simulator.mvp_features
 ## Phase 8: Submission
 
 **Objective:** Compile and validate all submission artifacts.
+
+**Entry Conditions:**
+- Phase 7 is complete: pitch is hardened and all `high` priority improvements addressed
+- Demo video URL is confirmed live and accessible
+- Repository is public and README loads correctly
+- Submission platform account is created and project page is started
+
+**Exit Conditions:**
+- `submission_quality_score ≥ 7`
+- All `blocking` missing artifacts are resolved
+- Submission description is published on the platform
+- All platform-required fields are populated (no `[TBD]` placeholders)
+- Submission confirmed at least 1 hour before the deadline
 
 **Skills:**
 - [`hackathon-submission-prep`](../skills/hackathon-submission-prep/SKILL.md) — Generate submission description, validate checklist, and produce last-mile action list.

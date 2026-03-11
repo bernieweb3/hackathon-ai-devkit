@@ -10,6 +10,7 @@
 - [`hackathon-common-failures.md`](../knowledge/hackathon-common-failures.md) — failure patterns to avoid
 - [`hackathon-demo-psychology.md`](../knowledge/hackathon-demo-psychology.md) — how judges evaluate
 - [`hackathon-tools.md`](../knowledge/hackathon-tools.md) — rapid development tools
+- [`hackathon-reference-architecture.md`](../knowledge/hackathon-reference-architecture.md) — recommended stack architecture
 
 ---
 

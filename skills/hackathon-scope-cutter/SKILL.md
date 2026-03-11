@@ -5,6 +5,17 @@ Reduce a project's feature set to the minimum viable product (MVP) that can be s
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- A top idea has been selected and confirmed by `hackathon-idea-scoring`
+- A feature wishlist exists and must be reduced to a shippable set
+- The hackathon duration and team size are known
+- The team is at risk of building too much and shipping nothing
+- Invoked once per project, immediately after idea selection; output is an upstream dependency for planning, implementation, and presentation skills
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

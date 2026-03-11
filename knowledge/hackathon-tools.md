@@ -158,3 +158,76 @@ Recommended tools for rapid development during hackathons, organized by category
 | **Canva** | Pitch deck design, social graphics | <5 min |
 
 **Hackathon tip:** v0.dev can generate a passable starting UI component from a text description in under 2 minutes. Use it to unblock frontend development while the backend is being built.
+
+---
+
+## Recommended Hackathon Stack
+
+This stack is optimized for three things: minimal infrastructure setup time, fast deployment, and reliable live demos. It can be fully operational within 30 minutes from a blank project.
+
+### Frontend — Vercel
+
+- Zero-config deployment from GitHub push
+- Automatic HTTPS, preview URLs per branch, and edge CDN
+- Native support for Next.js (recommended) and any static framework
+- Free tier sufficient for any hackathon demo load
+- **Why:** A production URL in under 2 minutes with no DevOps
+
+### Backend — Render
+
+- Deploy any Dockerfile or native runtime (Python, Node, Go, Ruby)
+- Persistent disk, background workers, and cron jobs available
+- Free tier supports one always-on web service
+- Automatic deploys from GitHub
+- **Why:** Fastest path from "runs locally" to "runs on a URL" for backend APIs
+
+### Database — Supabase
+
+- Managed Postgres with a web UI, REST API, and realtime subscriptions
+- Built-in auth (email, OAuth, magic link) if needed
+- Vector search extension available for AI/embedding demos
+- Instant project creation; credentials available in 60 seconds
+- **Why:** Full relational DB plus auth without any infrastructure management
+
+### AI Model Routing
+
+Use one or more of the following depending on model requirements:
+
+| Provider | Best For | Latency | Free Tier |
+|---|---|---|---|
+| **Groq** | Fastest inference for Llama, Mixtral, Gemma | Ultra-low (<100ms) | Yes |
+| **OpenRouter** | Access 200+ models via one API key | Model-dependent | Yes (credits) |
+| **Nvidia NIM** | GPU-accelerated inference for open models | Low | Yes (trial) |
+
+- **Groq:** Use when demo UX depends on near-instant LLM responses (chat, autocomplete, real-time suggestions)
+- **OpenRouter:** Use when model flexibility is needed or sponsor requires a specific model; one API key routes to any provider
+- **Nvidia NIM:** Use when running open-weight models (Llama, Mistral) with high throughput requirements
+
+### Stack Summary
+
+```
+┌────────────────────────────────────────────────┐
+│  User Browser / Mobile                         │
+│         ↓                                      │
+│  Next.js on Vercel  (Frontend)                 │
+│         ↓                                      │
+│  FastAPI / Express on Render  (Backend API)    │
+│         ↓                          ↓           │
+│  Supabase Postgres (DB)    Groq / OpenRouter   │
+│                             / Nvidia NIM (LLM) │
+└────────────────────────────────────────────────┘
+```
+
+### Setup Time Estimates
+
+| Component | Time to First Deploy |
+|---|---|
+| Vercel (Next.js) | 3–5 min |
+| Render (FastAPI) | 5–10 min |
+| Supabase (Postgres) | 2–3 min |
+| Groq API key + first call | 5 min |
+| OpenRouter API key + first call | 5 min |
+
+**Total stack operational:** ~20–30 minutes from scratch
+
+**Reference architecture:** See `knowledge/hackathon-reference-architecture.md` for a detailed request flow diagram and implementation notes.

@@ -5,6 +5,17 @@ Identify and amplify the single strongest wow-factor moment in a hackathon proje
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- MVP features are defined and the demo flow is drafted from `hackathon-scope-cutter`
+- The team needs to identify which feature to lead with in the demo
+- Multiple candidate features exist and priority must be established
+- The demo narrative lacks a clear climactic moment judges will remember
+- Invoked during Phase 3 (Scope Definition), after `hackathon-scope-cutter`; output feeds both demo and pitch skills
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

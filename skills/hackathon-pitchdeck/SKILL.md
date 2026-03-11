@@ -5,6 +5,17 @@ Construct a complete hackathon pitch deck narrative with slide-by-slide content,
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- The demo flow is implemented and the wow factor is confirmed
+- Judging evaluation axes from `hackathon-track-analyzer` are available
+- A pitch deck must be constructed before the presentation phase
+- The pitch duration is known (determines slide count and time allocation)
+- Invoked during Phase 6; run in parallel with `hackathon-demo-video` after implementation is frozen
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

@@ -5,6 +5,17 @@ Parse hackathon track descriptions, sponsor briefs, and theme statements to extr
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- A hackathon track description, theme, or event page is available
+- Sponsor briefs or prize track details need to be parsed
+- Judging criteria or a scoring rubric must be structured before ideation begins
+- The team needs to understand disqualifying constraints before committing to an idea
+- This is always the **first skill invoked** in any hackathon workflow
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

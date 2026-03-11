@@ -5,6 +5,17 @@ Provide structured implementation guidance for a hackathon project task, includi
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- A specific task from `hackathon-task-planner` is about to be implemented
+- Implementation guidance, code scaffolds, or shortcut patterns are needed
+- A developer is blocked and needs a concrete starting point
+- The task budget needs to be assessed for `[HIGH-RISK]` overrun potential
+- Invoked once per task; iterate through the full task list from `hackathon-task-planner`
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

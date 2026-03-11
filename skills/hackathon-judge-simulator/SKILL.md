@@ -5,6 +5,17 @@ Simulate a panel of hackathon judges evaluating a project, generating likely que
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- The pitch deck is drafted and the demo is recorded
+- The team needs to stress-test the pitch before live judging
+- Adversarial questions and rebuttal strategies must be prepared
+- Predicted scores reveal gaps that can be addressed before presentation
+- Invoked during Phase 7 (Evaluation); re-invoke after pitch improvements are made for a second simulation pass
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

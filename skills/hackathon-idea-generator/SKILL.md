@@ -5,6 +5,17 @@ Generate a diverse set of candidate project ideas that address the identified pr
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- A `problem_statement` and `solution_gaps` are available from `hackathon-problem-space`
+- The team is ready to brainstorm and needs structured idea diversity
+- Track constraints from `hackathon-track-analyzer` are confirmed
+- The team size and hackathon duration are known (required for feasibility scoping)
+- Invoked after problem space mapping is complete, before idea scoring
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

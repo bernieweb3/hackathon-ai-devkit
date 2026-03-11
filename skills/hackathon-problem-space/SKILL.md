@@ -5,6 +5,17 @@ Map the problem domain for a hackathon project by identifying target users, core
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- A hackathon track has been analyzed and `track_summary` is available
+- The team needs to identify who the target user is before generating ideas
+- The problem domain is broad and must be narrowed before ideation
+- Existing solutions must be surveyed to identify gaps worth exploiting
+- Invoked immediately after `hackathon-track-analyzer` completes
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

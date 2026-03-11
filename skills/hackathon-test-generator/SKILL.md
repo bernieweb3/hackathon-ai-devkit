@@ -5,6 +5,17 @@ Generate a focused set of test cases and a lightweight test coverage plan that v
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- Core MVP features have been implemented and the demo flow is connected end-to-end
+- Done criteria from `hackathon-code-implementer` are available
+- The team needs to verify the demo will not crash before judging
+- Manual verification steps are needed for a quick pre-demo sanity check
+- Invoked once after the implementation phase stabilizes; re-invoke after any demo-path bug fix
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

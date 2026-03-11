@@ -5,6 +5,17 @@ Compile and validate all required hackathon submission artifacts into a complete
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- The demo video is uploaded and the pitch deck is finalized
+- Submission deadline is approaching and artifacts must be validated
+- A submission platform (Devpost, Dorahacks, etc.) requires a structured description
+- The team needs a checklist of what is complete versus what is still missing
+- Invoked during Phase 8; submit output to the platform at least 1 hour before the deadline
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

@@ -5,6 +5,17 @@ Produce a structured script and shot list for a hackathon demo video that showca
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- The MVP demo flow is implemented and stable
+- A demo video must be recorded for submission or as a live-demo fallback
+- The wow moment timing and placement in the video need to be optimized
+- The recording environment must be checked and locked before recording begins
+- Invoked during Phase 6; run in parallel with `hackathon-pitchdeck` after code freeze
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

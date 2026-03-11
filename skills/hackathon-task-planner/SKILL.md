@@ -5,6 +5,17 @@ Decompose the MVP scope into a sequenced, time-boxed task list with assigned rol
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- MVP features with time budgets are available from `hackathon-scope-cutter`
+- The team needs a structured task list before coding begins
+- Roles and parallel workstreams need to be defined
+- The critical path must be identified to protect the demo timeline
+- Invoked once per project during Phase 4; re-invoke if scope is cut during implementation
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

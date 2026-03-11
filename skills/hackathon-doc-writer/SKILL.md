@@ -5,6 +5,17 @@ Generate structured technical documentation artifacts (ADR, PRD, feature specs) 
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- MVP scope is locked and needs to be documented in a PRD
+- An architectural decision has been made that should be recorded in an ADR
+- A specific feature needs a formal spec before implementation begins
+- Invoked during Phase 4 (Project Planning), after `hackathon-scope-cutter` completes
+- Can be re-invoked any time a new architectural decision is made during implementation
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

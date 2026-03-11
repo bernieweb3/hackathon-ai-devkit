@@ -5,6 +5,17 @@ Evaluate and rank candidate project ideas against a weighted scoring rubric alig
 
 ---
 
+## Trigger Conditions
+
+Use this skill when:
+- A list of candidate ideas is available from `hackathon-idea-generator`
+- `evaluation_axes` from `hackathon-track-analyzer` are confirmed
+- The team must converge on a single idea before scoping begins
+- Objective comparison is needed to resolve disagreement between team members
+- Invoked directly after `hackathon-idea-generator`; output gates all subsequent phases
+
+---
+
 ## Inputs
 
 | Input | Type | Required | Description |

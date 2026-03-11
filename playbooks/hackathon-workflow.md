@@ -7,10 +7,26 @@ Defines the recommended skill execution order for a complete hackathon project l
 ## Workflow Diagram
 
 ```
-Track Understanding → Idea Development → Scope Definition → Project Planning
-                                                                    ↓
-                                              Submission ← Evaluation ← Demo Preparation ← Implementation
+[URL] → Event Parsing → Track Understanding → Idea Development → Scope Definition → Project Planning
+                                                                                           ↓
+                                                       Submission ← Evaluation ← Demo Preparation ← Implementation
 ```
+
+---
+
+## Phase → Skill Mapping Reference
+
+| Phase | Skills | Mode |
+|---|---|---|
+| **0. Event Parsing** | `hackathon-event-parser` | Once; autonomous entry point |
+| **1. Track Understanding** | `hackathon-track-analyzer` | Once; feeds all downstream phases |
+| **2. Idea Development** | `hackathon-problem-space` → `hackathon-idea-generator` → `hackathon-idea-scoring` | Sequential |
+| **3. Scope Definition** | `hackathon-scope-cutter` → `hackathon-wow-detector` | Sequential |
+| **4. Project Planning** | `hackathon-doc-writer` + `hackathon-task-planner` | Parallel |
+| **5. Implementation** | `hackathon-code-implementer` (×N tasks) → `hackathon-test-generator` | Per-task iteration |
+| **6. Demo Preparation** | `hackathon-demo-video` + `hackathon-pitchdeck` | Parallel after code freeze |
+| **7. Evaluation** | `hackathon-judge-simulator` | Once; re-invoke after pitch edits |
+| **8. Submission** | `hackathon-submission-prep` | Once; 1h before deadline minimum |
 
 ---
 
@@ -18,14 +34,61 @@ Track Understanding → Idea Development → Scope Definition → Project Planni
 
 | Phase | Skills | Gate Condition |
 |---|---|---|
-| 1. Track Understanding | `hackathon-track-analyzer` | Constraints and criteria extracted |
-| 2. Idea Development | `hackathon-problem-space` → `hackathon-idea-generator` → `hackathon-idea-scoring` | Top idea selected |
+| 0. Event Parsing | `hackathon-event-parser` | Event metadata, tracks, and criteria extracted from URL |
+| 1. Track Understanding | `hackathon-track-analyzer` | Constraints and evaluation axes confirmed |
+| 2. Idea Development | `hackathon-problem-space` → `hackathon-idea-generator` → `hackathon-idea-scoring` | Top idea selected and committed |
 | 3. Scope Definition | `hackathon-scope-cutter` → `hackathon-wow-detector` | MVP and demo flow locked |
 | 4. Project Planning | `hackathon-doc-writer` → `hackathon-task-planner` | Task list with estimates ready |
 | 5. Implementation | `hackathon-code-implementer` → `hackathon-test-generator` | Demo runs end-to-end |
 | 6. Demo Preparation | `hackathon-demo-video` → `hackathon-pitchdeck` | Video uploaded, slides ready |
 | 7. Evaluation | `hackathon-judge-simulator` | Q&A prepared, pitch refined |
 | 8. Submission | `hackathon-submission-prep` | All artifacts submitted |
+
+---
+
+## Phase 0: Event Parsing  *(Autonomous Pipeline Entry Point)*
+
+**Objective:** Extract all hackathon event data from a URL so downstream skills receive structured input without manual copy-paste.
+
+**Entry Conditions:**
+- A hackathon event URL is available (Devpost, DoraHacks, MLH, Hackathon.com, or any event page)
+- This is the starting point of an autonomous pipeline run
+
+**Exit Conditions:**
+- `event_metadata` is populated with name, platform, and deadline
+- At least one `track` is extracted with a description
+- `judging_criteria` are extracted or inferred with `rubric_source` set
+- `recommended_track` is identified (or multiple tracks are available for team selection)
+- `next_skill` is set to `hackathon-track-analyzer`
+- `extraction_confidence` is documented; any gaps listed in `extraction_warnings`
+
+**Skills:**
+- [`hackathon-event-parser`](../skills/hackathon-event-parser/SKILL.md) — Fetch and parse event page; extract tracks, criteria, sponsors, timeline, and recommended track.
+
+**Required Inputs:**
+- `event_url` — hackathon event URL
+- `team_size` (optional)
+- `team_skills` (optional)
+
+**Key Outputs:**
+- `event_metadata` (name, deadline, duration, platform)
+- `tracks[]` with descriptions, sponsor tools, feasibility signals
+- `judging_criteria[]` per track
+- `sponsor_tools[]`
+- `timeline[]`
+- `recommended_track`
+
+**Gate:** `extraction_confidence` is `high` or `medium`. If `low`, supplement with manual inputs before proceeding to Phase 1.
+
+**Data Flow into Phase 1:**
+```
+event_parser.recommended_track.description → track_analyzer.track_description
+event_parser.judging_criteria[track]        → track_analyzer.judging_rubric
+event_parser.sponsor_tools                  → track_analyzer.sponsor_briefs
+event_parser.event_metadata.duration_hours  → track_analyzer.hackathon_duration_hours
+```
+
+**Skip condition:** If no URL is available, skip Phase 0 and provide track description manually to `hackathon-track-analyzer`.
 
 ---
 
@@ -353,24 +416,25 @@ repo_url                        → submission_prep.repo_url
 ## Skill Dependency Map
 
 ```
-hackathon-track-analyzer
-    ├── hackathon-problem-space
-    │       └── hackathon-idea-generator
-    │               └── hackathon-idea-scoring
-    │                       └── hackathon-scope-cutter
-    │                               ├── hackathon-wow-detector
-    │                               ├── hackathon-doc-writer
-    │                               ├── hackathon-task-planner
-    │                               │       └── hackathon-code-implementer
-    │                               │               └── hackathon-test-generator
-    │                               ├── hackathon-demo-video
-    │                               └── hackathon-pitchdeck
-    │                                       └── hackathon-judge-simulator
-    │                                               └── hackathon-submission-prep
-    └── (evaluation_axes feeds) hackathon-idea-scoring
-                                hackathon-wow-detector
-                                hackathon-pitchdeck
-                                hackathon-judge-simulator
+hackathon-event-parser  [Phase 0 — optional autonomous entry]
+    └── hackathon-track-analyzer  [Phase 1 — required]
+            ├── hackathon-problem-space
+            │       └── hackathon-idea-generator
+            │               └── hackathon-idea-scoring
+            │                       └── hackathon-scope-cutter
+            │                               ├── hackathon-wow-detector
+            │                               ├── hackathon-doc-writer
+            │                               ├── hackathon-task-planner
+            │                               │       └── hackathon-code-implementer
+            │                               │               └── hackathon-test-generator
+            │                               ├── hackathon-demo-video
+            │                               └── hackathon-pitchdeck
+            │                                       └── hackathon-judge-simulator
+            │                                               └── hackathon-submission-prep
+            └── (evaluation_axes feeds) hackathon-idea-scoring
+                                        hackathon-wow-detector
+                                        hackathon-pitchdeck
+                                        hackathon-judge-simulator
 ```
 
 ---
@@ -379,11 +443,12 @@ hackathon-track-analyzer
 
 | Phase | 24h | 36h | 48h |
 |---|---|---|---|
-| 1. Track Understanding | H+0 → H+0:30 | H+0 → H+0:45 | H+0 → H+0:45 |
-| 2. Idea Development | H+0:30 → H+1:30 | H+0:45 → H+2:00 | H+0:45 → H+2:15 |
-| 3. Scope Definition | H+1:30 → H+2:00 | H+2:00 → H+3:00 | H+2:15 → H+4:00 |
-| 4. Project Planning | H+2:00 → H+2:30 | H+3:00 → H+4:00 | H+4:00 → H+5:00 |
-| 5. Implementation | H+2:30 → H+15 | H+4:00 → H+22 | H+5:00 → H+30 |
+| 0. Event Parsing | H+0 → H+0:15 | H+0 → H+0:15 | H+0 → H+0:20 |
+| 1. Track Understanding | H+0:15 → H+0:45 | H+0:15 → H+1:00 | H+0:20 → H+1:05 |
+| 2. Idea Development | H+0:45 → H+1:45 | H+1:00 → H+2:15 | H+1:05 → H+2:30 |
+| 3. Scope Definition | H+1:45 → H+2:15 | H+2:15 → H+3:15 | H+2:30 → H+4:15 |
+| 4. Project Planning | H+2:15 → H+2:45 | H+3:15 → H+4:15 | H+4:15 → H+5:15 |
+| 5. Implementation | H+2:45 → H+15 | H+4:15 → H+22 | H+5:15 → H+30 |
 | 6. Demo Preparation | H+15 → H+18 | H+22 → H+26 | H+30 → H+36 |
 | 7. Evaluation | H+18 → H+20 | H+26 → H+28 | H+36 → H+38 |
 | 8. Submission | H+20 → H+21 | H+28 → H+30 | H+38 → H+40 |

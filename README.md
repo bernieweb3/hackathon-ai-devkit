@@ -34,7 +34,7 @@ Each skill is a self-contained specification that AI agents load to perform a fo
 ├──────────────┬──────────────┬────────────┬─────────────┤
 │   skills/    │  knowledge/  │ templates/ │  playbooks/ │
 │              │              │            │             │
-│ 14 SKILL.md  │ 10 reference │ 5 document │ 4 workflow  │
+│ 15 SKILL.md  │ 10 reference │ 5 document │ 4 workflow  │
 │ agent specs  │ knowledge    │ templates  │ guides      │
 │              │ files        │            │             │
 └──────────────┴──────────────┴────────────┴─────────────┘
@@ -57,11 +57,12 @@ Each skill is a self-contained specification that AI agents load to perform a fo
 ## Workflow Overview
 
 ```
-Track → Idea → MVP → Code → Demo → Submission
+[URL] → Event Parsing → Track → Idea → MVP → Code → Demo → Submission
 ```
 
 | Step | Phase | Skills |
 |---|---|---|
+| 0 | **Event Parsing** *(autonomous entry)* | `hackathon-event-parser` |
 | 1 | **Track Understanding** | `hackathon-track-analyzer` |
 | 2 | **Idea Development** | `hackathon-problem-space` → `hackathon-idea-generator` → `hackathon-idea-scoring` |
 | 3 | **Scope Definition** | `hackathon-scope-cutter` → `hackathon-wow-detector` |
@@ -82,7 +83,8 @@ hackathon-ai-devkit/
 │
 ├── README.md
 │
-├── skills/                          # 14 agent skill modules
+├── skills/                          # 15 agent skill modules
+│   ├── hackathon-event-parser/      # NEW: Parse hackathon URL → structured event data
 │   ├── hackathon-track-analyzer/    # Analyze hackathon tracks and themes
 │   ├── hackathon-problem-space/     # Map problem domains and user pain points
 │   ├── hackathon-idea-generator/    # Generate project ideas
@@ -127,6 +129,11 @@ hackathon-ai-devkit/
 ---
 
 ## Skill Categories
+
+### Autonomous Entry
+| Skill | Purpose |
+|---|---|
+| `hackathon-event-parser` | Parse hackathon URL; extract tracks, criteria, timeline, sponsor tools |
 
 ### Strategy
 | Skill | Purpose |
@@ -225,6 +232,9 @@ templates/pitchdeck-outline.md
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
+│  AUTONOMOUS ENTRY POINT                                         │
+│  hackathon-event-parser  (URL → structured event data)         │
+├─────────────────────────────────────────────────────────────────┤
 │  STRATEGY LAYER                                                 │
 │  hackathon-track-analyzer   hackathon-problem-space             │
 │  hackathon-idea-generator   hackathon-idea-scoring              │
@@ -245,6 +255,7 @@ templates/pitchdeck-outline.md
 
 | Layer | Skills | Purpose |
 |---|---|---|
+| **Autonomous Entry** | event-parser | Parse hackathon URL; bootstrap pipeline without manual input |
 | **Strategy** | track-analyzer, problem-space, idea-generator, idea-scoring | Understand the playing field; select the winning idea |
 | **Planning** | scope-cutter, doc-writer, task-planner | Define exactly what to build and how to build it |
 | **Build** | code-implementer, test-generator | Implement the prototype and protect the demo path |
@@ -324,53 +335,115 @@ User → Vercel (Next.js) → Render (FastAPI) → Supabase
 
 ---
 
-## Automated Hackathon Pipeline
+## Autonomous Agent Workflow
 
-The devkit supports a fully automated pipeline where an AI agent performs the complete workflow from a single event URL.
+The devkit supports a fully autonomous pipeline triggered by a single hackathon event URL. An AI agent can execute the complete workflow — from event parsing through submission preparation — without manual input.
 
-### Agent Instructions
+### Pipeline: URL → Submission
 
 ```
-Given a hackathon event URL:
-
-1. Fetch the event page and extract:
-   - Track names and descriptions
-   - Sponsor briefs and prize descriptions
-   - Judging criteria and scoring rubric
-   - Submission deadline and duration
-
-2. Run hackathon-track-analyzer on each track
-   → Identify the highest-opportunity track based on strategic_opportunities
-
-3. Run hackathon-problem-space on the selected track
-   → Map the most viable user segment and problem statement
-
-4. Run hackathon-idea-generator with team_size and hackathon_duration_hours
-   → Generate 5 candidate ideas
-
-5. Run hackathon-idea-scoring
-   → Select the top_recommendation
-
-6. Run hackathon-scope-cutter
-   → Lock the MVP; produce demo flow and time budget
-
-7. Run hackathon-task-planner
-   → Produce full task list with critical path
-
-8. Run hackathon-pitchdeck + hackathon-wow-detector
-   → Produce pitch narrative and wow moment placement
-
-9. Output: Complete hackathon brief with selected idea, MVP scope,
-   task plan, pitch narrative, and recommended tech stack
+INPUT: hackathon event URL
+           │
+           ▼
+┌──────────────────────────┐
+│  hackathon-event-parser  │  fetch & parse event page
+│                          │  → tracks, criteria, timeline,
+│                          │    sponsor tools, deadlines
+└───────────┬──────────────┘
+            │  recommended_track + judging_criteria
+            ▼
+┌──────────────────────────┐
+│ hackathon-track-analyzer │  structure constraints &
+│                          │  evaluation axes
+└───────────┬──────────────┘
+            │  track_summary + evaluation_axes
+            ▼
+┌──────────────────────────────────────────────────────┐
+│  hackathon-problem-space                             │
+│  → hackathon-idea-generator (3–7 ideas)              │
+│  → hackathon-idea-scoring   (ranked + top pick)      │
+└───────────────────────────┬──────────────────────────┘
+                            │  top_recommendation
+                            ▼
+┌──────────────────────────────────────────────────────┐
+│  hackathon-scope-cutter  (MVP features + demo flow)  │
+│  → hackathon-wow-detector (primary wow moment)       │
+└───────────────────────────┬──────────────────────────┘
+                            │  mvp_features + mvp_demo_flow
+                            ▼
+┌──────────────────────────────────────────────────────┐
+│  hackathon-doc-writer   (PRD + ADRs)                 │
+│  hackathon-task-planner (tasks + critical path)      │
+└───────────────────────────┬──────────────────────────┘
+                            │  task_list + milestones
+                            ▼
+┌──────────────────────────────────────────────────────┐
+│  hackathon-code-implementer  (per task ×N)           │
+│  → hackathon-test-generator  (demo-blocking checks)  │
+└───────────────────────────┬──────────────────────────┘
+                            │  implementation done; demo stable
+                            ▼
+┌──────────────────────────────────────────────────────┐
+│  hackathon-demo-video   (script + shot list)         │
+│  hackathon-pitchdeck    (slides + speaker notes)     │
+│  → hackathon-judge-simulator (Q&A hardening)         │
+└───────────────────────────┬──────────────────────────┘
+                            │  pitch ready; artifacts validated
+                            ▼
+┌──────────────────────────┐
+│ hackathon-submission-prep│  final package + checklist
+└──────────────────────────┘
+            │
+            ▼
+OUTPUT: complete hackathon submission
 ```
 
-### Triggering the Automated Pipeline
+### Agent Instructions (Minimal Prompt)
 
-Provide the agent with:
-1. The hackathon event URL (e.g., Devpost event page, hackathon website)
-2. Your team size and available hours
-3. Your tech stack preferences (optional)
+```
+You are a hackathon AI agent. Use the hackathon-ai-devkit skill suite.
 
-The agent will execute phases 1–4 autonomously and present a complete project brief for team approval before implementation begins.
+Input: <hackathon event URL>
+Team size: <N>
+Team skills: <list>
+Hackathon duration: <hours>
+
+Steps:
+1. Load skills/hackathon-event-parser/SKILL.md
+   Fetch and parse the event URL. Extract tracks, criteria, and timeline.
+
+2. Load skills/hackathon-track-analyzer/SKILL.md
+   Use the parsed track data. Confirm evaluation axes and constraints.
+
+3. Run the full pipeline in sequence:
+   problem-space → idea-generator → idea-scoring →
+   scope-cutter → wow-detector →
+   doc-writer + task-planner →
+   code-implementer (per task) → test-generator →
+   demo-video + pitchdeck → judge-simulator →
+   submission-prep
+
+4. At each phase gate, verify exit conditions before proceeding.
+   Pause and request human input at Phase 3 (idea commitment gate)
+   and Phase 5 (code freeze gate).
+
+5. Output: complete hackathon project brief, task plan, pitch deck
+   outline, and submission description.
+```
+
+### Human Checkpoints
+
+The autonomous pipeline has two recommended human-in-the-loop gates:
+
+| Gate | Phase | Reason |
+|---|---|---|
+| **Idea commitment** | After Phase 2 | Human confirms the selected idea before scope is locked |
+| **Code freeze approval** | After Phase 5 | Human approves demo state before pitch and submission begin |
+
+### Skill Reference
+
+- **Entry point:** [`hackathon-event-parser`](skills/hackathon-event-parser/SKILL.md)
+- **Orchestration:** [`playbooks/hackathon-workflow.md`](playbooks/hackathon-workflow.md)
+- **Architecture:** [`knowledge/hackathon-reference-architecture.md`](knowledge/hackathon-reference-architecture.md)
 
 ---

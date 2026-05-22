@@ -143,14 +143,14 @@ recommended_skills:
 
 ### Knowledge Base
 
-- `knowledge/hackathon-judging-criteria.md`
-- `knowledge/hackathon-winning-patterns.md`
-- `knowledge/hackathon-tools.md`
-- `knowledge/hackathon-common-failures.md`
+- `../hackathon-shared-resources/knowledge/hackathon-judging-criteria.md`
+- `../hackathon-shared-resources/knowledge/hackathon-winning-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-tools.md`
+- `../hackathon-shared-resources/knowledge/hackathon-common-failures.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
-- `playbooks/24h-hackathon-playbook.md`
-- `playbooks/36h-hackathon-playbook.md`
-- `playbooks/48h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/24h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/36h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/48h-hackathon-playbook.md`

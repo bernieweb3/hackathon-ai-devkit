@@ -42,7 +42,7 @@ Use this skill when:
 | Output | Description |
 |---|---|
 | `demo_narrative` | Full prose narrative of the demo from opening to close |
-| `demo_flow` | Step-by-step demo with spoken lines, screen actions, and timing |
+| `demo_flow` | Step-by-step demo with spoken lines, screen actions, timing, and slide-level duration |
 | `wow_moment_staging` | Exact staging instructions for the primary wow moment |
 | `transition_cues` | Verbal cues to move between demo steps smoothly |
 | `rehearsal_checklist` | Items to verify before the live presentation |
@@ -57,8 +57,9 @@ Use this skill when:
 3. `primary_wow_moment` must appear before 60% of `demo_duration_seconds`.
 4. Every step in `mvp_demo_flow` must map to at least one `demo_flow` step.
 5. Spoken lines per step must be 15 words or fewer — short enough to say confidently while operating the UI.
-6. `wow_moment_staging` must include: pause instruction, what to say, what the audience sees.
-7. `rehearsal_checklist` must include: demo account state, test data loaded, browser/app state, notifications disabled.
+6. Each step in `demo_flow` must include `estimated_duration_seconds` to help the pitcher manage their speed.
+7. `wow_moment_staging` must include: pause instruction, what to say, what the audience sees.
+8. `rehearsal_checklist` must include: demo account state, test data loaded, browser/app state, notifications disabled.
 
 ---
 
@@ -72,6 +73,7 @@ demo_flow:
   - step: <number>
     timestamp_start_seconds: <number>
     timestamp_end_seconds: <number>
+    estimated_duration_seconds: <number>
     screen_action: "<what to do on screen>"
     spoken_lines: "<what to say>"
     presenter: "<presenter 1|presenter 2|all>"
@@ -136,6 +138,7 @@ demo_flow:
   - step: 1
     timestamp_start_seconds: 0
     timestamp_end_seconds: 12
+    estimated_duration_seconds: 12
     screen_action: "Open AnchorAI chat interface; type 'I'm feeling overwhelmed today'"
     spoken_lines: "Meet Alex. It's exam week. Alex opens AnchorAI and checks in."
     presenter: "presenter 1"
@@ -144,6 +147,7 @@ demo_flow:
   - step: 2
     timestamp_start_seconds: 12
     timestamp_end_seconds: 42
+    estimated_duration_seconds: 30
     screen_action: "Type 'I keep worrying about the same things as last week'"
     spoken_lines: "Alex mentions the same stress from last week. Watch what AnchorAI does."
     presenter: "presenter 1"
@@ -152,6 +156,7 @@ demo_flow:
   - step: 3
     timestamp_start_seconds: 42
     timestamp_end_seconds: 65
+    estimated_duration_seconds: 23
     screen_action: "Type 'I feel completely hopeless'; observe crisis card appear"
     spoken_lines: "When Alex signals distress, AnchorAI responds with care — and resources."
     presenter: "presenter 1"
@@ -160,6 +165,7 @@ demo_flow:
   - step: 4
     timestamp_start_seconds: 65
     timestamp_end_seconds: 75
+    estimated_duration_seconds: 10
     screen_action: "Hold on the full screen"
     spoken_lines: "No waitlist. No starting over. AnchorAI — always there."
     presenter: "presenter 1"
@@ -203,15 +209,15 @@ recommended_skills:
 
 ### Knowledge Base
 
-- `knowledge/hackathon-demo-psychology.md`
-- `knowledge/hackathon-demo-patterns.md`
-- `knowledge/hackathon-pitch-strategy.md`
-- `knowledge/hackathon-winning-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-demo-psychology.md`
+- `../hackathon-shared-resources/knowledge/hackathon-demo-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-pitch-strategy.md`
+- `../hackathon-shared-resources/knowledge/hackathon-winning-patterns.md`
 
 ### Templates
 
-- `templates/demo-script-template.md`
+- `../hackathon-shared-resources/templates/demo-script-template.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`

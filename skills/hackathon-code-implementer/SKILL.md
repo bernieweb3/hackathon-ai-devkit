@@ -158,11 +158,11 @@ done_criteria:
 
 ### Knowledge Base
 
-- `knowledge/hackathon-reference-architecture.md`
-- `knowledge/hackathon-tools.md`
-- `knowledge/hackathon-mvp-strategy.md`
-- `knowledge/hackathon-common-failures.md`
+- `../hackathon-shared-resources/knowledge/hackathon-reference-architecture.md`
+- `../hackathon-shared-resources/knowledge/hackathon-tools.md`
+- `../hackathon-shared-resources/knowledge/hackathon-mvp-strategy.md`
+- `../hackathon-shared-resources/knowledge/hackathon-common-failures.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`

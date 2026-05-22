@@ -48,7 +48,7 @@ Use this skill when:
 
 ## Rules
 
-1. Use the corresponding template from `templates/` directory as the output structure.
+1. Use the corresponding template from `../hackathon-shared-resources/templates/` directory as the output structure.
 2. Do not omit any section from the template; use `[TBD]` for missing information.
 3. Keep language direct and scannable — no filler paragraphs.
 4. For ADR: capture exactly one architectural decision per document.
@@ -120,15 +120,15 @@ document: |
 
 ### Knowledge Base
 
-- `knowledge/hackathon-reference-architecture.md`
-- `knowledge/hackathon-mvp-strategy.md`
+- `../hackathon-shared-resources/knowledge/hackathon-reference-architecture.md`
+- `../hackathon-shared-resources/knowledge/hackathon-mvp-strategy.md`
 
 ### Templates
 
-- `templates/ADR-template.md`
-- `templates/PRD-template.md`
-- `templates/feature-spec-template.md`
+- `../hackathon-shared-resources/templates/ADR-template.md`
+- `../hackathon-shared-resources/templates/PRD-template.md`
+- `../hackathon-shared-resources/templates/feature-spec-template.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`

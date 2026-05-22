@@ -146,11 +146,11 @@ recommended_skills:
 
 ### Knowledge Base
 
-- `knowledge/hackathon-judging-criteria.md`
-- `knowledge/hackathon-winning-patterns.md`
-- `knowledge/hackathon-mvp-strategy.md`
-- `knowledge/hackathon-common-failures.md`
+- `../hackathon-shared-resources/knowledge/hackathon-judging-criteria.md`
+- `../hackathon-shared-resources/knowledge/hackathon-winning-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-mvp-strategy.md`
+- `../hackathon-shared-resources/knowledge/hackathon-common-failures.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`

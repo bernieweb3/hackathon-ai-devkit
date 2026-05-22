@@ -101,3 +101,15 @@ Judges score what they can see. Missing artifacts cost points automatically.
 - Submit 1 hour before the deadline minimum.
 - Video, repo, and description must tell the complete story independently.
 - README must include a one-command setup or a live demo link.
+
+---
+
+## Pattern 11: High-Speed Collaborative Git Workflow
+
+Under the extreme time pressure of a hackathon, merge conflicts can break code right before the deadline.
+
+- Eliminate Pull Request (PR) reviews unless the team size is very large (5+ members).
+- Adopt a Trunk-Based Development approach: developers push direct commits to `main` or merge short-lived feature branches immediately.
+- Run local builds and verify the demo path works before pulling or merging.
+- Commits must be small, frequent, and descriptively tagged (e.g., `feat(auth):`, `fix(ui):`) to easily isolate and revert breaking changes.
+- Commits must never sit unmerged for more than 2 hours. Sync early, sync often.

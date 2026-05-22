@@ -156,12 +156,12 @@ differentiation_statement: "Unlike every other mental health AI demo today, Anch
 
 ### Knowledge Base
 
-- `knowledge/hackathon-demo-psychology.md`
-- `knowledge/hackathon-demo-patterns.md`
-- `knowledge/hackathon-judging-criteria.md`
-- `knowledge/hackathon-winning-patterns.md`
-- `knowledge/hackathon-pitch-strategy.md`
+- `../hackathon-shared-resources/knowledge/hackathon-demo-psychology.md`
+- `../hackathon-shared-resources/knowledge/hackathon-demo-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-judging-criteria.md`
+- `../hackathon-shared-resources/knowledge/hackathon-winning-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-pitch-strategy.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`

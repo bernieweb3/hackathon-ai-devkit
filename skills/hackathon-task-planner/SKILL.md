@@ -187,14 +187,14 @@ recommended_skills:
 
 ### Knowledge Base
 
-- `knowledge/hackathon-mvp-strategy.md`
-- `knowledge/hackathon-reference-architecture.md`
-- `knowledge/hackathon-common-failures.md`
-- `knowledge/hackathon-tools.md`
+- `../hackathon-shared-resources/knowledge/hackathon-mvp-strategy.md`
+- `../hackathon-shared-resources/knowledge/hackathon-reference-architecture.md`
+- `../hackathon-shared-resources/knowledge/hackathon-common-failures.md`
+- `../hackathon-shared-resources/knowledge/hackathon-tools.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
-- `playbooks/24h-hackathon-playbook.md`
-- `playbooks/36h-hackathon-playbook.md`
-- `playbooks/48h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/24h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/36h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/48h-hackathon-playbook.md`

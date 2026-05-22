@@ -185,11 +185,11 @@ pitch_improvements:
 
 ### Knowledge Base
 
-- `knowledge/hackathon-judging-criteria.md`
-- `knowledge/hackathon-pitch-strategy.md`
-- `knowledge/hackathon-winning-patterns.md`
-- `knowledge/hackathon-demo-psychology.md`
+- `../hackathon-shared-resources/knowledge/hackathon-judging-criteria.md`
+- `../hackathon-shared-resources/knowledge/hackathon-pitch-strategy.md`
+- `../hackathon-shared-resources/knowledge/hackathon-winning-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-demo-psychology.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`

@@ -189,10 +189,10 @@ last_mile_actions:
 
 ### Knowledge Base
 
-- `knowledge/hackathon-submission-guidelines.md`
-- `knowledge/hackathon-winning-patterns.md`
-- `knowledge/hackathon-pitch-strategy.md`
+- `../hackathon-shared-resources/knowledge/hackathon-submission-guidelines.md`
+- `../hackathon-shared-resources/knowledge/hackathon-winning-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-pitch-strategy.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`

@@ -45,13 +45,13 @@ Agent steps:
 Output: complete project brief, task plan, pitch deck, submission package
 ```
 
-**Pipeline orchestration guide:** [`playbooks/hackathon-workflow.md`](playbooks/hackathon-workflow.md)
+**Pipeline orchestration guide:** [`skills/hackathon-shared-resources/playbooks/hackathon-workflow.md`](skills/hackathon-shared-resources/playbooks/hackathon-workflow.md)
 
 ---
 
 ## Overview
 
-**hackathon-ai-devkit** is a reusable collection of AI agent context modules (skills), knowledge files, templates, and playbooks designed to support every phase of a hackathon — from track analysis through final submission.
+**hackathon-ai-devkit** is a reusable collection of AI agent context modules (skills) and shared resources designed to support every phase of a hackathon — from track analysis through final submission.
 
 Each skill is a self-contained specification that AI agents load to perform a focused task in the hackathon workflow.
 
@@ -62,48 +62,47 @@ Each skill is a self-contained specification that AI agents load to perform a fo
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                   hackathon-ai-devkit                   │
-├──────────────┬──────────────┬────────────┬─────────────┤
-│   skills/    │  knowledge/  │ templates/ │  playbooks/ │
-│              │              │            │             │
-│ 15 SKILL.md  │ 10 reference │ 5 document │ 4 workflow  │
-│ agent specs  │ knowledge    │ templates  │ guides      │
-│              │ files        │            │             │
-└──────────────┴──────────────┴────────────┴─────────────┘
+├─────────────────────────────────────────────────────────┤
+│                         skills/                         │
+│                                                         │
+│ 26 standard skills + 1 shared resource package          │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
 ```
 
-**Skills** are the core unit. Each `SKILL.md` defines a single agent capability with:
-- Typed inputs and outputs
-- Enforcement rules
-- YAML output format
-- Concrete example
+**Skills** are the core unit. Each `SKILL.md` defines a single agent capability with typed inputs, outputs, rules, and examples.
 
-**Knowledge files** provide reference information agents load as context — judging patterns, winning strategies, demo psychology, and tool recommendations.
-
-**Templates** are structured Markdown documents agents populate with project-specific content (PRDs, ADRs, pitch decks, demo scripts).
-
-**Playbooks** are time-boxed execution guides that sequence skills, knowledge, and templates into a full hackathon strategy.
+The **hackathon-shared-resources** skill is a special container package that houses the shared resources used across the entire suite:
+- **Knowledge files** (`skills/hackathon-shared-resources/knowledge/`) provide reference information agents load as context — judging patterns, winning strategies, demo psychology, and tool recommendations.
+- **Templates** (`skills/hackathon-shared-resources/templates/`) are structured Markdown documents agents populate with project-specific content (PRDs, ADRs, pitch decks, demo scripts).
+- **Playbooks** (`skills/hackathon-shared-resources/playbooks/`) are time-boxed execution guides that sequence skills, knowledge, and templates into a full hackathon strategy.
 
 ---
 
 ## Workflow Overview
 
 ```
-[URL] → Event Parsing → Track → Idea → MVP → Code → Demo → Submission
+[URL] → Event Parsing → Team Setup & Recruiting → Track Understanding → Idea Development → Scope Definition → Risk Analysis → Project Planning
+                                                                                                                               ↓
+                                   Post-Mortem ← Submission ← Deployment Prep ← Evaluation ← Demo Preparation ← Build
 ```
 
 | Step | Phase | Skills |
 |---|---|---|
 | 0 | **Event Parsing** *(autonomous entry)* | `hackathon-event-parser` |
+| 0.5 | **Team Setup** | `hackathon-team-recruiter` OR `hackathon-role-allocator` |
 | 1 | **Track Understanding** | `hackathon-track-analyzer` |
 | 2 | **Idea Development** | `hackathon-problem-space` → `hackathon-idea-generator` → `hackathon-idea-scoring` |
 | 3 | **Scope Definition** | `hackathon-scope-cutter` → `hackathon-wow-detector` |
-| 4 | **Project Planning** | `hackathon-doc-writer` → `hackathon-task-planner` |
-| 5 | **Implementation** | `hackathon-code-implementer` → `hackathon-test-generator` |
-| 6 | **Demo Preparation** | `hackathon-demo-video` → `hackathon-pitchdeck` |
+| 4 | **Project Planning** | `hackathon-risk-analyzer` → `hackathon-doc-writer` + `hackathon-task-planner` |
+| 5 | **Build** | `hackathon-repo-bootstrap` → `hackathon-git-master` → `hackathon-sponsor-integrator` → `hackathon-mock-data-generator` → `hackathon-code-implementer` (with `hackathon-milestone-monitor`) → `hackathon-test-generator` |
+| 6 | **Demo Preparation** | `hackathon-demo-script` + `hackathon-demo-video` + `hackathon-pitchdeck` |
 | 7 | **Evaluation** | `hackathon-judge-simulator` |
-| 8 | **Submission** | `hackathon-submission-prep` |
+| 8 | **Deployment Prep** | `hackathon-deployment-prep` |
+| 9 | **Submission** | `hackathon-submission-prep` |
+| 10 | **Post-Mortem** | `hackathon-post-mortem` |
 
-**Full orchestration guide:** [`playbooks/hackathon-workflow.md`](playbooks/hackathon-workflow.md)
+**Full orchestration guide:** [`skills/hackathon-shared-resources/playbooks/hackathon-workflow.md`](skills/hackathon-shared-resources/playbooks/hackathon-workflow.md)
 
 ---
 
@@ -114,47 +113,61 @@ hackathon-ai-devkit/
 │
 ├── README.md
 │
-├── skills/                          # 15 agent skill modules
-│   ├── hackathon-event-parser/      # NEW: Parse hackathon URL → structured event data
+├── skills/                          # 26 agent skill modules
+│   ├── hackathon-event-parser/      # Parse hackathon URL → structured event data
+│   ├── hackathon-team-recruiter/    # Generate team recruitment posts
+│   ├── hackathon-role-allocator/    # Allocate team roles based on skill profiles
 │   ├── hackathon-track-analyzer/    # Analyze hackathon tracks and themes
 │   ├── hackathon-problem-space/     # Map problem domains and user pain points
 │   ├── hackathon-idea-generator/    # Generate project ideas
 │   ├── hackathon-idea-scoring/      # Score and rank ideas
 │   ├── hackathon-scope-cutter/      # Trim scope to MVP
-│   ├── hackathon-doc-writer/        # Write technical documentation
-│   ├── hackathon-task-planner/      # Plan and sequence tasks
-│   ├── hackathon-code-implementer/  # Guide code implementation
-│   ├── hackathon-test-generator/    # Generate test cases
-│   ├── hackathon-pitchdeck/         # Build pitch decks
-│   ├── hackathon-demo-video/        # Script demo videos
 │   ├── hackathon-wow-detector/      # Identify wow-factor moments
-│   ├── hackathon-judge-simulator/   # Simulate judge evaluation
-│   └── hackathon-submission-prep/   # Prepare final submissions
-│
-├── knowledge/                       # Domain knowledge files
-│   ├── hackathon-winning-patterns.md
-│   ├── hackathon-judging-criteria.md
-│   ├── hackathon-demo-patterns.md
-│   ├── hackathon-mvp-strategy.md
-│   ├── hackathon-pitch-strategy.md
-│   ├── hackathon-submission-guidelines.md
-│   ├── hackathon-common-failures.md    # failure pattern catalogue
-│   ├── hackathon-demo-psychology.md    # judge psychology and demo techniques
-│   ├── hackathon-tools.md             # rapid development tools + recommended stack
-│   └── hackathon-reference-architecture.md  # NEW: reference stack architecture
-│
-├── templates/                       # Reusable document templates
-│   ├── ADR-template.md
-│   ├── PRD-template.md
-│   ├── feature-spec-template.md
-│   ├── pitchdeck-outline.md
-│   └── demo-script-template.md
-│
-└── playbooks/                       # Time-boxed strategy playbooks
-    ├── hackathon-workflow.md          # NEW: master skill orchestration guide
-    ├── 24h-hackathon-playbook.md
-    ├── 36h-hackathon-playbook.md
-    └── 48h-hackathon-playbook.md
+│   ├── hackathon-risk-analyzer/     # Identify technical and demo risks
+│   ├── hackathon-doc-writer/        # Write technical documentation (PRDs, ADRs)
+│   ├── hackathon-task-planner/      # Plan and sequence tasks
+│   ├── hackathon-repo-bootstrap/    # Scaffold project files and templates
+│   ├── hackathon-git-master/        # Rapid collaboration branch workflow & conflict handling
+│   ├── hackathon-sponsor-integrator/# Scaffold minimal boilerplate for integrating sponsor APIs
+│   ├── hackathon-mock-data-generator/# Generate realistic seed/mock data conforming to judging rules
+│   ├── hackathon-code-implementer/  # Guide code implementation of individual tasks
+│   ├── hackathon-milestone-monitor/ # Monitor progress velocity at checkpoints (25/50/75/90%)
+│   ├── hackathon-test-generator/    # Generate demo-protecting test cases
+│   ├── hackathon-demo-script/       # Generate time-coded demo scripts
+│   ├── hackathon-demo-video/        # Script and structure demo video recordings
+│   ├── hackathon-pitchdeck/         # Build pitch decks (React or traditional formats)
+│   ├── hackathon-judge-simulator/   # Simulate judge evaluation and hard Q&A Qs
+│   ├── hackathon-deployment-prep/   # Validate deployment targets and checklists
+│   ├── hackathon-submission-prep/   # Compile and validate final submission artifacts
+│   ├── hackathon-post-mortem/       # Cleanup cloud assets, scrub history credentials, and build public READMEs
+│   └── hackathon-shared-resources/  # Shared resources (knowledge, templates, and playbooks) for CLI packaging
+│       ├── SKILL.md                 # Package entry point for npx skills add
+│       ├── knowledge/               # Domain knowledge files
+│       │   ├── hackathon-winning-patterns.md
+│       │   ├── hackathon-judging-criteria.md
+│       │   ├── hackathon-demo-patterns.md
+│       │   ├── hackathon-mvp-strategy.md
+│       │   ├── hackathon-pitch-strategy.md
+│       │   ├── hackathon-pitchdeck-winning-pattern.md  # Pitchdeck Rule of Three & 7-slide framework
+│       │   ├── hackathon-pitchdeck-design-with-react.md # Genspark-style React slide deck design guide
+│       │   ├── hackathon-submission-guidelines.md
+│       │   ├── hackathon-common-failures.md    # failure pattern catalogue
+│       │   ├── hackathon-demo-psychology.md    # judge psychology and demo techniques
+│       │   ├── hackathon-tools.md             # rapid development tools + recommended stack
+│       │   └── hackathon-reference-architecture.md  # reference stack architecture
+│       │
+│       ├── templates/               # Reusable document templates
+│       │   ├── ADR-template.md
+│       │   ├── PRD-template.md
+│       │   ├── feature-spec-template.md
+│       │   ├── pitchdeck-outline.md
+│       │   └── demo-script-template.md
+│       │
+│       └── playbooks/               # Time-boxed strategy playbooks
+│           ├── hackathon-workflow.md          # master skill orchestration guide
+│           ├── 24h-hackathon-playbook.md
+│           ├── 36h-hackathon-playbook.md
+│           └── 48h-hackathon-playbook.md
 ```
 
 ---
@@ -165,6 +178,12 @@ hackathon-ai-devkit/
 | Skill | Purpose |
 |---|---|
 | `hackathon-event-parser` | Parse hackathon URL; extract tracks, criteria, timeline, sponsor tools |
+
+### Team Setup
+| Skill | Purpose |
+|---|---|
+| `hackathon-team-recruiter` | Generate strategic and targeted team recruitment posts |
+| `hackathon-role-allocator` | Allocate team roles and responsibilities based on skill sets |
 
 ### Strategy
 | Skill | Purpose |
@@ -178,23 +197,45 @@ hackathon-ai-devkit/
 | Skill | Purpose |
 |---|---|
 | `hackathon-scope-cutter` | Reduce features to a shippable MVP |
-| `hackathon-doc-writer` | Author ADRs, PRDs, and specs |
-| `hackathon-task-planner` | Sequence work into time-boxed sprints |
+| `hackathon-wow-detector` | Identify and amplify the primary wow-factor moments |
+| `hackathon-risk-analyzer` | Identify and mitigate technical and demo risks |
+| `hackathon-doc-writer` | Author ADRs, PRDs, and technical specifications |
+| `hackathon-task-planner` | Sequence work into time-boxed tasks and paths |
 
 ### Engineering
 | Skill | Purpose |
 |---|---|
-| `hackathon-code-implementer` | Drive prototype implementation |
-| `hackathon-test-generator` | Generate test cases and coverage plans |
+| `hackathon-repo-bootstrap` | Scaffold workspace, repositories, and config templates |
+| `hackathon-git-master` | Establish rapid trunk-based workflows and resolve merge conflicts |
+| `hackathon-sponsor-integrator` | Scaffold minimal boilerplate for integrating sponsor APIs |
+| `hackathon-mock-data-generator` | Populate realistic seed/mock data conforming to judging rules |
+| `hackathon-code-implementer` | Direct code implementation tasks and checklist verification |
+| `hackathon-milestone-monitor` | Track and analyze velocity at major completion checkpoints |
+| `hackathon-test-generator` | Generate demo-protecting test cases and validations |
 
-### Presentation
+### Presentation & Submission
 | Skill | Purpose |
 |---|---|
-| `hackathon-pitchdeck` | Construct pitch deck narrative and slides |
-| `hackathon-demo-video` | Script and structure demo recordings |
-| `hackathon-wow-detector` | Surface the strongest wow-factor moments |
-| `hackathon-judge-simulator` | Simulate judge Q&A and scoring |
-| `hackathon-submission-prep` | Finalize and package submission artifacts |
+| `hackathon-demo-script` | Generate time-coded live presentation scripts |
+| `hackathon-demo-video` | Script and storyboard pre-recorded presentation videos |
+| `hackathon-pitchdeck` | Design and construct pitch deck narrative and React components |
+| `hackathon-judge-simulator` | Perform judge mock evaluations and Q&A hardening |
+| `hackathon-deployment-prep` | Verify production builds, fallbacks, and checklists |
+| `hackathon-submission-prep` | Package artifacts and optimize submission text |
+| `hackathon-post-mortem` | Archive assets, purge secrets, and publish portfolio READMEs |
+
+---
+
+## Installation
+
+You can install this skill pack directly into your AI coding agent (e.g. Claude Code, Cursor, Windsurf) using the **Skills CLI**:
+
+```bash
+# Add the entire hackathon devkit to your agent
+npx skills add bernieweb3/hackathon-ai-devkit
+```
+
+This installs all 26 skills alongside the `hackathon-shared-resources` package, which contains all shared playbooks, knowledge, and templates.
 
 ---
 
@@ -202,7 +243,7 @@ hackathon-ai-devkit/
 
 ### Load a Skill
 
-Point your AI agent at the skill's `SKILL.md` as a context module:
+Point your AI agent at the installed skill's `SKILL.md` as a context module:
 
 ```
 skills/hackathon-track-analyzer/SKILL.md
@@ -212,12 +253,12 @@ Provide the required **Inputs** defined in the skill specification. The agent wi
 
 ### Use a Playbook
 
-Select the playbook matching your hackathon duration:
+Select the playbook matching your hackathon duration from the shared resources package:
 
 ```
-playbooks/24h-hackathon-playbook.md
-playbooks/36h-hackathon-playbook.md
-playbooks/48h-hackathon-playbook.md
+skills/hackathon-shared-resources/playbooks/24h-hackathon-playbook.md
+skills/hackathon-shared-resources/playbooks/36h-hackathon-playbook.md
+skills/hackathon-shared-resources/playbooks/48h-hackathon-playbook.md
 ```
 
 Each playbook maps skills and milestones to time blocks.
@@ -227,16 +268,18 @@ Each playbook maps skills and milestones to time blocks.
 Load knowledge files as background context for your agent:
 
 ```
-knowledge/hackathon-winning-patterns.md
-knowledge/hackathon-judging-criteria.md
-knowledge/hackathon-demo-patterns.md
-knowledge/hackathon-mvp-strategy.md
-knowledge/hackathon-pitch-strategy.md
-knowledge/hackathon-submission-guidelines.md
-knowledge/hackathon-common-failures.md
-knowledge/hackathon-demo-psychology.md
-knowledge/hackathon-tools.md
-knowledge/hackathon-reference-architecture.md
+skills/hackathon-shared-resources/knowledge/hackathon-winning-patterns.md
+skills/hackathon-shared-resources/knowledge/hackathon-judging-criteria.md
+skills/hackathon-shared-resources/knowledge/hackathon-demo-patterns.md
+skills/hackathon-shared-resources/knowledge/hackathon-mvp-strategy.md
+skills/hackathon-shared-resources/knowledge/hackathon-pitch-strategy.md
+skills/hackathon-shared-resources/knowledge/hackathon-pitchdeck-winning-pattern.md
+skills/hackathon-shared-resources/knowledge/hackathon-pitchdeck-design-with-react.md
+skills/hackathon-shared-resources/knowledge/hackathon-submission-guidelines.md
+skills/hackathon-shared-resources/knowledge/hackathon-common-failures.md
+skills/hackathon-shared-resources/knowledge/hackathon-demo-psychology.md
+skills/hackathon-shared-resources/knowledge/hackathon-tools.md
+skills/hackathon-shared-resources/knowledge/hackathon-reference-architecture.md
 ```
 
 ### Use Templates
@@ -244,8 +287,8 @@ knowledge/hackathon-reference-architecture.md
 Populate templates directly or instruct your agent to fill them:
 
 ```
-templates/PRD-template.md
-templates/pitchdeck-outline.md
+skills/hackathon-shared-resources/templates/PRD-template.md
+skills/hackathon-shared-resources/templates/pitchdeck-outline.md
 ```
 
 ---
@@ -262,35 +305,44 @@ templates/pitchdeck-outline.md
 ## Architecture Layers
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  AUTONOMOUS ENTRY POINT                                         │
-│  hackathon-event-parser  (URL → structured event data)         │
-├─────────────────────────────────────────────────────────────────┤
-│  STRATEGY LAYER                                                 │
-│  hackathon-track-analyzer   hackathon-problem-space             │
-│  hackathon-idea-generator   hackathon-idea-scoring              │
-├─────────────────────────────────────────────────────────────────┤
-│  PLANNING LAYER                                                 │
-│  hackathon-scope-cutter     hackathon-doc-writer                │
-│  hackathon-task-planner                                         │
-├─────────────────────────────────────────────────────────────────┤
-│  BUILD LAYER                                                    │
-│  hackathon-code-implementer hackathon-test-generator            │
-├─────────────────────────────────────────────────────────────────┤
-│  PRESENTATION LAYER                                             │
-│  hackathon-pitchdeck        hackathon-demo-video                │
-│  hackathon-wow-detector     hackathon-judge-simulator           │
-│  hackathon-submission-prep                                      │
-└─────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│  AUTONOMOUS ENTRY POINT                                                          │
+│  hackathon-event-parser (URL → structured event data)                            │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│  TEAM SETUP LAYER                                                                │
+│  hackathon-team-recruiter         hackathon-role-allocator                       │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│  STRATEGY LAYER                                                                  │
+│  hackathon-track-analyzer         hackathon-problem-space                        │
+│  hackathon-idea-generator         hackathon-idea-scoring                         │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│  PLANNING LAYER                                                                  │
+│  hackathon-scope-cutter           hackathon-wow-detector                         │
+│  hackathon-risk-analyzer          hackathon-doc-writer                           │
+│  hackathon-task-planner                                                          │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│  BUILD LAYER                                                                     │
+│  hackathon-repo-bootstrap         hackathon-git-master                           │
+│  hackathon-sponsor-integrator     hackathon-mock-data-generator                  │
+│  hackathon-code-implementer       hackathon-milestone-monitor                    │
+│  hackathon-test-generator                                                        │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│  PRESENTATION, DEPLOYMENT & CLEANUP LAYER                                        │
+│  hackathon-demo-script            hackathon-demo-video                           │
+│  hackathon-pitchdeck              hackathon-judge-simulator                      │
+│  hackathon-deployment-prep        hackathon-submission-prep                      │
+│  hackathon-post-mortem                                                           │
+└──────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 | Layer | Skills | Purpose |
 |---|---|---|
-| **Autonomous Entry** | event-parser | Parse hackathon URL; bootstrap pipeline without manual input |
-| **Strategy** | track-analyzer, problem-space, idea-generator, idea-scoring | Understand the playing field; select the winning idea |
-| **Planning** | scope-cutter, doc-writer, task-planner | Define exactly what to build and how to build it |
-| **Build** | code-implementer, test-generator | Implement the prototype and protect the demo path |
-| **Presentation** | pitchdeck, demo-video, wow-detector, judge-simulator, submission-prep | Win on stage and in the submission form |
+| **Autonomous Entry** | `event-parser` | Parse hackathon URL; bootstrap pipeline without manual input |
+| **Team Setup** | `team-recruiter`, `role-allocator` | Assemble teammates or assign roles based on skills |
+| **Strategy** | `track-analyzer`, `problem-space`, `idea-generator`, `idea-scoring` | Understand tracks/rubrics and select a winning idea |
+| **Planning** | `scope-cutter`, `wow-detector`, `risk-analyzer`, `doc-writer`, `task-planner` | Cut scope to MVP, prioritize wow factor, write PRD/ADR, sequence tasks |
+| **Build** | `repo-bootstrap`, `git-master`, `sponsor-integrator`, `mock-data-generator`, `code-implementer`, `milestone-monitor`, `test-generator` | Scaffold project, establish git trunk flow, build sponsor API scaffolds, generate mock data, code features, monitor checkpoints, write tests |
+| **Presentation, Deployment & Cleanup** | `demo-script`, `demo-video`, `pitchdeck`, `judge-simulator`, `deployment-prep`, `submission-prep`, `post-mortem` | Design slides/demo/video scripts, run judge simulator Q&A, build fallback, package submissions, clean cloud assets |
 
 ---
 
@@ -315,7 +367,7 @@ User → Vercel (Next.js) → Render (FastAPI) → Supabase
 - **OpenRouter** — single API key routes to 200+ models; ideal when sponsor requires specific model
 - **Nvidia NIM** — GPU-accelerated open-weight model inference
 
-**Full stack guide:** [`knowledge/hackathon-tools.md`](knowledge/hackathon-tools.md) · [`knowledge/hackathon-reference-architecture.md`](knowledge/hackathon-reference-architecture.md)
+**Full stack guide:** [`skills/hackathon-shared-resources/knowledge/hackathon-tools.md`](skills/hackathon-shared-resources/knowledge/hackathon-tools.md) · [`skills/hackathon-shared-resources/knowledge/hackathon-reference-architecture.md`](skills/hackathon-shared-resources/knowledge/hackathon-reference-architecture.md)
 
 ---
 
@@ -323,46 +375,62 @@ User → Vercel (Next.js) → Render (FastAPI) → Supabase
 
 ### Typical Workflow (Manual Agent Invocation)
 
-```
-1. Obtain hackathon track description and judging rubric
-2. Load skills/hackathon-track-analyzer/SKILL.md
-   → Provide: track_description, judging_rubric, hackathon_duration_hours
-   → Output:  evaluation_axes, required_constraints, strategic_opportunities
+1. **Parse Event URL**: Load `skills/hackathon-event-parser/SKILL.md`
+   → Provide: `hackathon_url`
+   → Output: `event_name`, `tracks`, `judging_criteria`, `sponsors`, `timeline`
 
-3. Load skills/hackathon-problem-space/SKILL.md
-   → Provide: track_summary (from step 2), domain
-   → Output:  problem_statement, solution_gaps, user_segments
+2. **Team Setup**: Load `skills/hackathon-team-recruiter/SKILL.md` or `skills/hackathon-role-allocator/SKILL.md`
+   → Output: Social recruitment post or team role allocation mapping
 
-4. Load skills/hackathon-idea-generator/SKILL.md
-   → Provide: problem_statement, solution_gaps, track_constraints, team_size
-   → Output:  5 candidate ideas with risk levels and wow factors
+3. **Track Understanding**: Load `skills/hackathon-track-analyzer/SKILL.md`
+   → Provide: `track_description`, `judging_rubric`, `hackathon_duration_hours`
+   → Output: `evaluation_axes`, `required_constraints`, `strategic_opportunities`
 
-5. Load skills/hackathon-idea-scoring/SKILL.md
-   → Provide: ideas (from step 4), evaluation_axes (from step 2), team_skills
-   → Output:  ranked ideas, top_recommendation
+4. **Map Problem Space**: Load `skills/hackathon-problem-space/SKILL.md`
+   → Provide: `track_summary`, `domain`
+   → Output: `problem_statement`, `solution_gaps`, `user_segments`
 
-6. Load skills/hackathon-scope-cutter/SKILL.md
-   → Provide: top idea, feature_wishlist, hackathon_duration_hours, team_size
-   → Output:  mvp_features, mvp_demo_flow, time_budget (scope is now locked)
+5. **Generate Ideas**: Load `skills/hackathon-idea-generator/SKILL.md`
+   → Provide: `problem_statement`, `solution_gaps`, `track_constraints`, `team_size`
+   → Output: 5 candidate ideas with risk levels and wow factors
 
-7. Load skills/hackathon-task-planner/SKILL.md + skills/hackathon-doc-writer/SKILL.md
-   → Output:  task list with critical path, PRD, ADRs
+6. **Rank Ideas**: Load `skills/hackathon-idea-scoring/SKILL.md`
+   → Provide: `ideas`, `evaluation_axes`, `team_skills`
+   → Output: Ranked ideas with a single recommended target idea
 
-8. Load skills/hackathon-code-implementer/SKILL.md (per task)
-   → Output:  implementation_plan, code_scaffolds, done_criteria
+7. **Determine MVP & Wow Factor**: Load `skills/hackathon-scope-cutter/SKILL.md` & `skills/hackathon-wow-detector/SKILL.md`
+   → Provide: Selected idea, feature wishlist, duration
+   → Output: `mvp_features`, `mvp_demo_flow`, and the target primary wow-factor moment
 
-9. Load skills/hackathon-test-generator/SKILL.md
-   → Output:  demo-protecting test cases, manual_checks, demo_blockers
+8. **Plan & Write PRD**: Load `skills/risk-analyzer/SKILL.md`, `skills/hackathon-doc-writer/SKILL.md`, & `skills/hackathon-task-planner/SKILL.md`
+   → Output: Mitigated risk log, PRD, ADRs, and a task checklist with time estimates
 
-10. Load skills/hackathon-demo-video/SKILL.md + skills/hackathon-pitchdeck/SKILL.md
-    → Output:  time-coded demo script, slide deck with speaker notes
+9. **Scaffold & Set Up Repo**: Load `skills/hackathon-repo-bootstrap/SKILL.md` and `skills/hackathon-git-master/SKILL.md`
+   → Output: Repository template scaffolding and rapid collaboration branch/merge strategy
 
-11. Load skills/hackathon-judge-simulator/SKILL.md
-    → Output:  hard questions + answers, objection rebuttals, pitch improvements
+10. **Integrate Sponsors & Seed Data**: Load `skills/hackathon-sponsor-integrator/SKILL.md` and `skills/hackathon-mock-data-generator/SKILL.md`
+    → Output: Minimal sponsor SDK boilerplate integration and rule-compliant demo seed data
 
-12. Load skills/hackathon-submission-prep/SKILL.md
-    → Output:  submission description, artifact checklist, last-mile actions
-```
+11. **Implement and Monitor**: Load `skills/hackathon-code-implementer/SKILL.md` and `skills/hackathon-milestone-monitor/SKILL.md`
+    → Output: Done-verified code files and milestone velocity/red-flag health tracking
+
+12. **Generate Tests**: Load `skills/hackathon-test-generator/SKILL.md`
+    → Output: End-to-end regression checks protecting the key demo path
+
+13. **Script & Build Pitch**: Load `skills/hackathon-demo-script/SKILL.md`, `skills/hackathon-demo-video/SKILL.md`, and `skills/hackathon-pitchdeck/SKILL.md`
+    → Output: Time-coded narration scripts, video storyboard, and interactive React/traditional slide deck
+
+14. **Harden Pitch**: Load `skills/hackathon-judge-simulator/SKILL.md`
+    → Output: Adversarial judge Q&A bank, scoring forecasts, and rebuttal templates
+
+15. **Validate Deployment**: Load `skills/hackathon-deployment-prep/SKILL.md`
+    → Output: Production build validation, fallback plan, and environment configuration
+
+16. **Package Submission**: Load `skills/hackathon-submission-prep/SKILL.md`
+    → Output: Form-ready text, video links, demo description, and submission ZIP checklist
+
+17. **Post-Mortem**: Load `skills/hackathon-post-mortem/SKILL.md`
+    → Output: Paused paid instances, git history purged of secrets, and public developer portfolio README
 
 ---
 
@@ -373,60 +441,71 @@ The devkit supports a fully autonomous pipeline triggered by a single hackathon 
 ### Pipeline: URL → Submission
 
 ```
-INPUT: hackathon event URL
-           │
-           ▼
-┌──────────────────────────┐
-│  hackathon-event-parser  │  fetch & parse event page
-│                          │  → tracks, criteria, timeline,
-│                          │    sponsor tools, deadlines
-└───────────┬──────────────┘
-            │  recommended_track + judging_criteria
-            ▼
-┌──────────────────────────┐
-│ hackathon-track-analyzer │  structure constraints &
-│                          │  evaluation axes
-└───────────┬──────────────┘
-            │  track_summary + evaluation_axes
-            ▼
-┌──────────────────────────────────────────────────────┐
-│  hackathon-problem-space                             │
-│  → hackathon-idea-generator (3–7 ideas)              │
-│  → hackathon-idea-scoring   (ranked + top pick)      │
-└───────────────────────────┬──────────────────────────┘
-                            │  top_recommendation
-                            ▼
-┌──────────────────────────────────────────────────────┐
-│  hackathon-scope-cutter  (MVP features + demo flow)  │
-│  → hackathon-wow-detector (primary wow moment)       │
-└───────────────────────────┬──────────────────────────┘
-                            │  mvp_features + mvp_demo_flow
-                            ▼
-┌──────────────────────────────────────────────────────┐
-│  hackathon-doc-writer   (PRD + ADRs)                 │
-│  hackathon-task-planner (tasks + critical path)      │
-└───────────────────────────┬──────────────────────────┘
-                            │  task_list + milestones
-                            ▼
-┌──────────────────────────────────────────────────────┐
-│  hackathon-code-implementer  (per task ×N)           │
-│  → hackathon-test-generator  (demo-blocking checks)  │
-└───────────────────────────┬──────────────────────────┘
-                            │  implementation done; demo stable
-                            ▼
-┌──────────────────────────────────────────────────────┐
-│  hackathon-demo-video   (script + shot list)         │
-│  hackathon-pitchdeck    (slides + speaker notes)     │
-│  → hackathon-judge-simulator (Q&A hardening)         │
-└───────────────────────────┬──────────────────────────┘
-                            │  pitch ready; artifacts validated
-                            ▼
-┌──────────────────────────┐
-│ hackathon-submission-prep│  final package + checklist
-└──────────────────────────┘
-            │
-            ▼
-OUTPUT: complete hackathon submission
+                         INPUT: hackathon event URL
+                                     │
+                                     ▼
+                        ┌──────────────────────────┐
+                        │  hackathon-event-parser  │
+                        └────────────┬─────────────┘
+                                     │
+                                     ▼
+            ┌──────────────────────────────────────────────────┐
+            │  hackathon-team-recruiter / role-allocator       │
+            └────────────────────────┬─────────────────────────┘
+                                     │
+                                     ▼
+                        ┌──────────────────────────┐
+                        │ hackathon-track-analyzer │
+                        └────────────┬─────────────┘
+                                     │
+                                     ▼
+            ┌──────────────────────────────────────────────────┐
+            │  hackathon-problem-space                         │
+            │  → hackathon-idea-generator                      │
+            │  → hackathon-idea-scoring (top selection)        │
+            └────────────────────────┬─────────────────────────┘
+                                     │
+                                     ▼
+            ┌──────────────────────────────────────────────────┐
+            │  hackathon-scope-cutter                          │
+            │  → hackathon-wow-detector                        │
+            └────────────────────────┬─────────────────────────┘
+                                     │
+                                     ▼
+            ┌──────────────────────────────────────────────────┐
+            │  hackathon-risk-analyzer                         │
+            │  → hackathon-doc-writer                          │
+            │  → hackathon-task-planner                        │
+            └────────────────────────┬─────────────────────────┘
+                                     │
+                                     ▼
+            ┌──────────────────────────────────────────────────┐
+            │  hackathon-repo-bootstrap → git-master           │
+            │  → sponsor-integrator → mock-data-generator      │
+            │  → hackathon-code-implementer (checkpointed by   │
+            │    milestone-monitor) → test-generator           │
+            └────────────────────────┬─────────────────────────┘
+                                     │
+                                     ▼
+            ┌──────────────────────────────────────────────────┐
+            │  hackathon-demo-script + demo-video + pitchdeck  │
+            │  → hackathon-judge-simulator (hardening)         │
+            └────────────────────────┬─────────────────────────┘
+                                     │
+                                     ▼
+            ┌──────────────────────────────────────────────────┐
+            │  hackathon-deployment-prep                       │
+            │  → hackathon-submission-prep                     │
+            └────────────────────────┬─────────────────────────┘
+                                     │
+                                     ▼
+                        ┌──────────────────────────┐
+                        │  hackathon-post-mortem   │
+                        └────────────┬─────────────┘
+                                     │
+                                     ▼
+                       OUTPUT: secured submission &
+                            portfolio-ready project
 ```
 
 ### Agent Instructions (Minimal Prompt)
@@ -443,23 +522,27 @@ Steps:
 1. Load skills/hackathon-event-parser/SKILL.md
    Fetch and parse the event URL. Extract tracks, criteria, and timeline.
 
-2. Load skills/hackathon-track-analyzer/SKILL.md
+2. Load skills/hackathon-team-recruiter/SKILL.md or skills/hackathon-role-allocator/SKILL.md
+   Establish team roles and generate recruitment templates.
+
+3. Load skills/hackathon-track-analyzer/SKILL.md
    Use the parsed track data. Confirm evaluation axes and constraints.
 
-3. Run the full pipeline in sequence:
+4. Run the full pipeline in sequence:
    problem-space → idea-generator → idea-scoring →
    scope-cutter → wow-detector →
-   doc-writer + task-planner →
-   code-implementer (per task) → test-generator →
-   demo-video + pitchdeck → judge-simulator →
-   submission-prep
+   risk-analyzer → doc-writer → task-planner →
+   repo-bootstrap → git-master → sponsor-integrator → mock-data-generator →
+   code-implementer (per task) → milestone-monitor (checkpoints) → test-generator →
+   demo-script → demo-video → pitchdeck → judge-simulator →
+   deployment-prep → submission-prep → post-mortem
 
-4. At each phase gate, verify exit conditions before proceeding.
-   Pause and request human input at Phase 3 (idea commitment gate)
+5. At each phase gate, verify exit conditions before proceeding.
+   Pause and request human input at Phase 2 (idea commitment gate)
    and Phase 5 (code freeze gate).
 
-5. Output: complete hackathon project brief, task plan, pitch deck
-   outline, and submission description.
+6. Output: complete hackathon project brief, task plan, pitch deck
+   narrative, and submission description.
 ```
 
 ### Human Checkpoints
@@ -474,7 +557,9 @@ The autonomous pipeline has two recommended human-in-the-loop gates:
 ### Skill Reference
 
 - **Entry point:** [`hackathon-event-parser`](skills/hackathon-event-parser/SKILL.md)
-- **Orchestration:** [`playbooks/hackathon-workflow.md`](playbooks/hackathon-workflow.md)
-- **Architecture:** [`knowledge/hackathon-reference-architecture.md`](knowledge/hackathon-reference-architecture.md)
+- **Orchestration:** [`skills/hackathon-shared-resources/playbooks/hackathon-workflow.md`](skills/hackathon-shared-resources/playbooks/hackathon-workflow.md)
+- **Architecture:** [`skills/hackathon-shared-resources/knowledge/hackathon-reference-architecture.md`](skills/hackathon-shared-resources/knowledge/hackathon-reference-architecture.md)
+- **Pitch Deck Winning Pattern:** [`skills/hackathon-shared-resources/knowledge/hackathon-pitchdeck-winning-pattern.md`](skills/hackathon-shared-resources/knowledge/hackathon-pitchdeck-winning-pattern.md)
+- **React Presentation Guide:** [`skills/hackathon-shared-resources/knowledge/hackathon-pitchdeck-design-with-react.md`](skills/hackathon-shared-resources/knowledge/hackathon-pitchdeck-design-with-react.md)
 
 ---

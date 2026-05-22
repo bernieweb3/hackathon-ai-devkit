@@ -177,17 +177,17 @@ next_skill: "hackathon-track-analyzer"
 
 ### Knowledge Base
 
-- `knowledge/hackathon-tools.md`
-- `knowledge/hackathon-judging-criteria.md`
-- `knowledge/hackathon-winning-patterns.md`
-- `knowledge/hackathon-submission-guidelines.md`
+- `../hackathon-shared-resources/knowledge/hackathon-tools.md`
+- `../hackathon-shared-resources/knowledge/hackathon-judging-criteria.md`
+- `../hackathon-shared-resources/knowledge/hackathon-winning-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-submission-guidelines.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
-- `playbooks/24h-hackathon-playbook.md`
-- `playbooks/36h-hackathon-playbook.md`
-- `playbooks/48h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/24h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/36h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/48h-hackathon-playbook.md`
 
 **Input:**
 ```yaml

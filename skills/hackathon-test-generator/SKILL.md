@@ -188,10 +188,10 @@ demo_blockers:
 
 ### Knowledge Base
 
-- `knowledge/hackathon-demo-patterns.md`
-- `knowledge/hackathon-common-failures.md`
-- `knowledge/hackathon-mvp-strategy.md`
+- `../hackathon-shared-resources/knowledge/hackathon-demo-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-common-failures.md`
+- `../hackathon-shared-resources/knowledge/hackathon-mvp-strategy.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`

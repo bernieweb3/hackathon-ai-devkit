@@ -232,18 +232,18 @@ recommended_skills:
 
 ### Knowledge Base
 
-- `knowledge/hackathon-demo-patterns.md`
-- `knowledge/hackathon-common-failures.md`
-- `knowledge/hackathon-submission-guidelines.md`
-- `knowledge/hackathon-demo-psychology.md`
+- `../hackathon-shared-resources/knowledge/hackathon-demo-patterns.md`
+- `../hackathon-shared-resources/knowledge/hackathon-common-failures.md`
+- `../hackathon-shared-resources/knowledge/hackathon-submission-guidelines.md`
+- `../hackathon-shared-resources/knowledge/hackathon-demo-psychology.md`
 
 ### Templates
 
-- `templates/demo-script-template.md`
+- `../hackathon-shared-resources/templates/demo-script-template.md`
 
 ### Playbooks
 
-- `playbooks/hackathon-workflow.md`
-- `playbooks/24h-hackathon-playbook.md`
-- `playbooks/36h-hackathon-playbook.md`
-- `playbooks/48h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/hackathon-workflow.md`
+- `../hackathon-shared-resources/playbooks/24h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/36h-hackathon-playbook.md`
+- `../hackathon-shared-resources/playbooks/48h-hackathon-playbook.md`
